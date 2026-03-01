@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSC 2026: 무너진 규칙, 재편되는 세계 질서 — 팩토리10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── 변수 ── */
+:root {
+  --black:   #111111;
+  --mid:     #3A3A3A;
+  --muted:   #777777;
+  --rule:    #DDE3EA;
+  --warm:    #F0F4F8;
+  --accent:  #1B3F6E;
+  --accent-l:#2558A0;
+  --hdr-bg:  #0F2647;
+  --white:   #FFFFFF;
+  --serif:   'Noto Serif KR', serif;
+  --sans:    'Noto Sans KR', sans-serif;
+  --body-w:  960px;
+}
+
+/* ── 리셋 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+em, i { font-style: normal; }
+
+/* ── STICKY HEADER ── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--hdr-bg);
+  border-bottom: 3px solid var(--accent);
+}
+.site-header {
+  padding: 0 32px;
+}
+.site-header__inner {
+  max-width: var(--body-w);
+  margin: 0 auto;
+  padding: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: .02em;
+}
+.site-logo .badge {
+  font-style: normal;
+  background: var(--accent-l);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  margin-left: 9px;
+  vertical-align: middle;
+}
+.site-nav {
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .03em;
+  margin-left: auto;
+  margin-right: 16px;
+}
+.site-nav a { color: rgba(255,255,255,.6); }
+.site-nav span { margin: 0 5px; color: rgba(255,255,255,.25); }
+
+/* ── PROGRESS BAR ── */
+#progress {
+  position: fixed;
+  top: 51px;
+  left: 0;
+  height: 2px;
+  background: var(--accent-l);
+  width: 0%;
+  z-index: 200;
+  transition: width .1s linear;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--white);
+  padding: 26px 32px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero__inner {
+  max-width: var(--body-w);
+  margin: 0 auto;
+}
+.hero__meta {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.hero__meta span {
+  color: rgba(0,0,0,.20);
+  margin: 0 10px;
+  font-weight: 300;
+}
+.hero__title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  margin-bottom: 14px;
+  word-break: keep-all;
+}
+.hero__sub {
+  font-size: 17px;
+  font-weight: 400;
+  color: #4A5568;
+  line-height: 1.7;
+  word-break: keep-all;
+  margin-bottom: 14px;
+}
+.hero__stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,.12);
+}
+.hero__stats > div {
+  flex: 0 0 120px;
+}
+.hero__stat-n {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero__stat-l {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* ── TOC ── */
+.toc-bar {
+  background: var(--warm);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 32px;
+  position: sticky;
+  top: 51px;
+  z-index: 90;
+}
+.toc-bar__inner {
+  max-width: var(--body-w);
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.toc-bar__inner::-webkit-scrollbar { display: none; }
+.toc-link {
+  display: block;
+  padding: 14px 12px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.toc-link:hover, .toc-link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── EXECUTIVE SUMMARY ── */
+.exec-summary {
+  background: var(--white);
+  border-left: 4px solid var(--accent);
+  margin: 36px auto 0;
+  padding: 22px 28px;
+  max-width: var(--body-w);
+}
+.exec-summary__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.exec-summary__text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--black);
+  word-break: keep-all;
+}
+
+/* ── CONTENT WRAPPER ── */
+.content {
+  max-width: var(--body-w);
+  margin: 0 auto;
+  padding: 0 32px 60px;
+}
+
+/* ── SECTION HEAD ── */
+.sec-head {
+  padding-top: 48px;
+  margin-bottom: 20px;
+}
+section[id], div[id] {
+  scroll-margin-top: 110px;
+}
+.matrix-list a {
+  color: var(--mid);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--rule);
+  transition: color .2s, border-color .2s;
+}
+.matrix-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.sec-head__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.sec-head__title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--black);
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--black);
+  word-break: keep-all;
+}
+
+/* ── 본문 ── */
+.body-p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--mid);
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+.body-p strong { color: var(--black); font-weight: 700; }
+
+/* ── PULL QUOTE ── */
+.pq {
+  margin: 20px 0;
+  padding: 18px 22px;
+  background: var(--warm);
+  border-left: 3px solid var(--accent);
+}
+.pq p {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--black);
+  word-break: keep-all;
+}
+
+/* ── COMMENT BLOCK ── */
+.bq {
+  margin: 20px 0;
+  padding: 14px 0 14px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.bq + .bq {
+  border-top: none;
+  margin-top: -20px;
+}
+.bq::before {
+  content: 'COMMENT';
+  display: block;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+  padding-top: 4px;
+}
+.bq__text {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--black);
+  word-break: keep-all;
+  display: inline;
+}
+.bq__text::before { content: '\201C'; }
+.bq__text::after  { content: '\201D'; }
+.bq__attr {
+  display: inline;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+.bq__attr::before {
+  content: ' \2014 ';
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* ── CASE BLOCK ── */
+.case-block {
+  margin: 16px 0;
+  padding: 16px 20px;
+  background: #F5F8FC;
+  border-left: 3px solid var(--accent-l);
+}
+.case-block__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent-l);
+  margin-bottom: 8px;
+}
+.case-block__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 4px;
+  word-break: keep-all;
+}
+.case-block__body {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--mid);
+  word-break: keep-all;
+}
+
+/* ── INSIGHT ITEM ── */
+.insight-item {
+  margin-bottom: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+.insight-item__id {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.insight-item__title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+/* ── 인사이트 맵 테이블 ── */
+.matrix-table {
+  width: 110%;
+  margin-left: -5%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-size: 17px;
+}
+.matrix-table th {
+  background: var(--hdr-bg);
+  color: var(--white);
+  padding: 14px 16px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: .04em;
+}
+.matrix-table td {
+  padding: 14px 14px;
+  vertical-align: top;
+  border: 1px solid var(--rule);
+  line-height: 1.7;
+  letter-spacing: -0.04em;
+}
+.matrix-table .row-label {
+  background: var(--warm);
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  width: 70px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  padding: 10px 8px;
+}
+.q-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.q-tag--q1 { background: #E8D5D5; color: #8B2500; }
+.q-tag--q2 { background: #D5DDE8; color: #1B3F6E; }
+.q-tag--q3 { background: #D5E8D8; color: #1E6E3F; }
+.q-tag--q4 { background: #E8E4D5; color: #6E5A1B; }
+.matrix-cell--q3 { background: #F5F8F5; }
+.matrix-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.matrix-list li {
+  font-size: 17px;
+  line-height: 1.65;
+  padding: 4px 0;
+  color: var(--mid);
+  word-break: keep-all;
+}
+
+/* ── TAKE AWAY ── */
+.ta-box {
+  margin: 0;
+  padding: 14px 0 14px;
+  border-radius: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ta-box + .ta-box {
+  border-top: none;
+}
+.sub-title + .ta-box {
+  border-top: none;
+}
+.ta-box--threat {
+  background: none;
+}
+.ta-box--opportunity {
+  background: none;
+}
+.ta-box--decision {
+  background: none;
+}
+.ta-box--decision .ta-box__body br {
+  display: block;
+  content: '';
+  margin-top: 0.4em;
+}
+.ta-box__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+}
+.ta-box--threat .ta-box__label { color: #B03A2E; }
+.ta-box--opportunity .ta-box__label { color: #1E8449; }
+.ta-box--decision .ta-box__label { color: var(--accent); }
+.ta-box__body {
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--mid);
+  word-break: keep-all;
+}
+.ta-box__body strong { color: var(--black); font-weight: 700; }
+
+/* ── SILENCE MAP TABLE ── */
+.silence-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 17px;
+}
+.silence-table th {
+  background: var(--hdr-bg);
+  color: var(--white);
+  padding: 14px 16px;
+  font-weight: 700;
+  text-align: left;
+  font-size: 15px;
+}
+.silence-table td {
+  padding: 14px 16px;
+  vertical-align: top;
+  border: 1px solid var(--rule);
+  line-height: 1.75;
+  word-break: keep-all;
+}
+.silence-table tr:nth-child(even) td { background: #FAFBFC; }
+
+/* ── REFERENCES TABLE ── */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+.ref-table th {
+  background: var(--hdr-bg);
+  color: var(--white);
+  padding: 10px 14px;
+  font-weight: 700;
+  text-align: left;
+  font-size: 13px;
+}
+.ref-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.ref-table tr:nth-child(even) td { background: #FAFBFC; }
+.ref-table td:last-child { text-align: center; }
+
+/* ── INFOGRAPHIC ── */
+.infographic {
+  margin: 40px 0;
+  text-align: center;
+}
+.infographic img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+/* ── SUB-SECTION TITLE ── */
+.sub-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--black);
+  margin: 40px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  word-break: keep-all;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--hdr-bg);
+  margin-top: 80px;
+}
+.site-footer__inner {
+  max-width: var(--body-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 32px;
+}
+.site-footer__brand {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+.site-footer__copy {
+  font-size: 11px;
+  color: rgba(255,255,255,.35);
+}
+
+/* ── NOTICE ── */
+.notice {
+  background: var(--warm);
+  border: 1px solid var(--rule);
+  padding: 14px 18px;
+  margin: 28px 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── PDF 버튼 ── */
+.btn-pdf {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: rgba(255,255,255,.8);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: all .2s;
+}
+.btn-pdf:hover {
+  background: rgba(255,255,255,.12);
+  color: var(--white);
+  border-color: rgba(255,255,255,.6);
+}
+
+/* ── 인쇄 / PDF ── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 15mm 12mm 15mm 12mm;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    background: white;
+  }
+  .site-header, .toc-bar, #progress, .btn-pdf, .site-footer { display: none !important; }
+  section[id], div[id] { scroll-margin-top: 0; }
+  .hero {
+    background: white !important;
+    padding: 0 0 10px;
+    border-bottom: 2px solid var(--black);
+    margin-bottom: 0;
+  }
+  .hero__inner { max-width: 100%; }
+  .hero__meta { font-size: 7.5pt; margin-bottom: 6px; }
+  .hero__title { font-size: 18pt; line-height: 1.25; margin-bottom: 4px; color: var(--black); }
+  .hero__sub { font-size: 9pt; margin-bottom: 8px; color: var(--mid); }
+  .hero__stats { gap: 16px; padding-top: 8px; }
+  .hero__stat-n { font-size: 16pt; }
+  .hero__stat-l { font-size: 7pt; }
+  .exec-summary { margin: 8px 0 0; padding: 10px 14px; max-width: 100%; }
+  .exec-summary__label { font-size: 8pt; margin-bottom: 4px; }
+  .exec-summary__text { font-size: 9.5pt; line-height: 1.5; }
+  .content { max-width: 100%; padding: 0; }
+  .sec-head { padding-top: 16px; margin-bottom: 8px; }
+  .sec-head__label { font-size: 7.5pt; margin-bottom: 3px; }
+  .sec-head__title { font-size: 13pt; padding-bottom: 6px; }
+  .sub-title { font-size: 11pt; margin: 16px 0 6px; padding-bottom: 4px; }
+  .body-p { font-size: 9.5pt; line-height: 1.5; margin-bottom: 5px; }
+  .pq { margin: 8px 0; padding: 8px 12px; }
+  .pq p { font-size: 10pt; line-height: 1.5; }
+  .bq { margin: 8px 0; padding: 6px 0; }
+  .bq + .bq { margin-top: -8px; }
+  .bq::before { font-size: 7.5pt; margin-bottom: 2px; padding-bottom: 2px; padding-top: 2px; }
+  .bq__text { font-size: 9.5pt; line-height: 1.5; }
+  .bq__attr { font-size: 8pt; }
+  .case-block { margin: 6px 0; padding: 8px 12px; }
+  .case-block__label { font-size: 7.5pt; margin-bottom: 3px; }
+  .case-block__title { font-size: 9.5pt; margin-bottom: 2px; }
+  .case-block__body { font-size: 9.5pt; line-height: 1.5; }
+  .insight-item { margin-bottom: 12px; padding-top: 8px; }
+  .insight-item__id { font-size: 7.5pt; margin-bottom: 2px; }
+  .insight-item__title { font-size: 11pt; margin-bottom: 6px; }
+  .matrix-table { font-size: 8.5pt; margin: 10px 0; }
+  .matrix-table th { padding: 6px 8px; font-size: 8pt; }
+  .matrix-table td { padding: 6px 8px; line-height: 1.45; }
+  .matrix-table .row-label { width: 24px; font-size: 8pt; padding: 4px 3px; }
+  .matrix-list li { font-size: 8.5pt; line-height: 1.45; padding: 2px 0; }
+  .q-tag { font-size: 7pt; padding: 1px 4px; margin-bottom: 3px; }
+  .ta-box { padding: 6px 0; }
+  .ta-box__label { font-size: 7.5pt; margin-bottom: 3px; padding-bottom: 2px; }
+  .ta-box__body { font-size: 9.5pt; line-height: 1.5; }
+  .ta-box__body p { margin-bottom: 3px !important; }
+  .silence-table { font-size: 8.5pt; margin: 10px 0; }
+  .silence-table th { padding: 6px 8px; font-size: 8pt; }
+  .silence-table td { padding: 6px 8px; line-height: 1.45; }
+  .ref-table { font-size: 7.5pt; margin: 10px 0; }
+  .ref-table th { padding: 4px 6px; font-size: 7pt; }
+  .ref-table td { padding: 4px 6px; line-height: 1.35; }
+  .infographic { margin: 12px 0; }
+  .infographic img { max-width: 100%; max-height: 700px; object-fit: contain; }
+  .notice { padding: 6px 10px; margin: 10px 0; font-size: 8pt; }
+  .sec-head, .sub-title { page-break-after: avoid; }
+  .bq, .case-block, .ta-box, .pq { page-break-inside: avoid; }
+  img { page-break-inside: avoid; }
+  a { text-decoration: none !important; color: inherit !important; }
+}
+
+/* ── 반응형 ── */
+@media (max-width: 720px) {
+  .hero { padding: 36px 20px 28px; }
+  .hero__stats { flex-wrap: wrap; gap: 20px; }
+  .content { padding: 0 20px 60px; }
+  .toc-bar { padding: 0 12px; }
+  .toc-link { padding: 14px 10px 13px; font-size: 11px; }
+  .site-header__inner { padding: 0 20px; }
+  .site-nav { display: none; }
+  .exec-summary { margin: 24px 20px 0; }
+  .matrix-table { font-size: 12px; }
+  .matrix-table td, .matrix-table th { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div id="progress"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-logo">팩토리10<span class="badge">Conference Brief</span></div>
+    <nav class="site-nav"><a href="#">GEOPOLITICS RESEARCH</a><span>›</span>뮌헨안보회의 2026</nav>
+    <button class="btn-pdf" onclick="window.print()" title="PDF로 저장">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 1h5l4 4v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.3"/><path d="M9 1v4h4" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 9h5M5.5 11.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      PDF
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__meta">2026. 2.19<span>·</span>NC ANALYSIS</div>
+    <h1 class="hero__title">MSC 2026: 무너진 규칙, 재편되는 세계 질서</h1>
+    <p class="hero__sub">국제 안보 지형의 3대 구조적 전환과 핵심 통찰</p>
+    <div class="hero__stats">      <div>
+        <div class="hero__stat-n">52</div>
+        <div class="hero__stat-l">세션 전수 분석<br>MSC 2026</div>
+      </div>
+      <div>
+        <div class="hero__stat-n">€8,000억</div>
+        <div class="hero__stat-l">SAFE 프로그램<br>유럽 재무장</div>
+      </div>
+      <div>
+        <div class="hero__stat-n">GDP 5%</div>
+        <div class="hero__stat-l">NATO 새 목표<br>독일 주도</div>
+      </div>
+      <div>
+        <div class="hero__stat-n">17/20</div>
+        <div class="hero__stat-l">우크라 종전<br>합의 항목</div>
+      </div></div>
+  </div>
+</section>
+
+<!-- TOC -->
+<nav class="toc-bar">
+  <div class="toc-bar__inner">
+    <a class="toc-link" href="#sec-main">핵심내용</a>
+    <a class="toc-link" href="#sec-matrix">인사이트맵</a>
+    <a class="toc-link" href="#sec-takeaway">Take Away</a>
+    <a class="toc-link" href="#sec-q3">(Common Ground)</a>
+    <a class="toc-link" href="#sec-q2">(Hidden Evidence)</a>
+    <a class="toc-link" href="#sec-q4">(Reframing)</a>
+    <a class="toc-link" href="#sec-q1">(Blind Spot)</a>
+    <a class="toc-link" href="#sec-silence">Silence Map</a>
+    <a class="toc-link" href="#sec-ref">References</a>
+  </div>
+</nav>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="exec-summary">
+  <div class="exec-summary__label">Executive Summary</div>
+  <p class="exec-summary__text">유럽 재무장·탈중국 공급망 재편·에너지-AI 전환이라는 세 가지 구조적 전환이 동시에 가속되면서, 방위·에너지·광물·통신 시장에 기회와 위협이 중첩되고 있습니다. 3~5년 뒤 이 시점을 돌아볼 때, 가장 중요했던 변화는 8,000억 유로라는 예산 규모가 아니라 EU 의사결정 구조의 전환(만장일치→가중다수결)이 유럽 방위시장의 접근 규칙 자체를 재설계하고 있었다는 사실일 수 있습니다. 또한 지금 논의되지 않고 있는 영역 — 사이버 전쟁의 체계적 대비, 경제적 강압의 통합 대응, 재생에너지의 AI 경쟁력 전환 — 이 다음 사이클의 핵심 의제로 부상할 가능성이 높습니다. 지금 보이는 기회와 위협 너머에서 규칙이 바뀌고 있습니다.</p>
+</div>
+
+<!-- CONTENT -->
+<main class="content">
+<!-- ══════════════ 핵심 내용 ══════════════ -->
+<section id="sec-main">
+  <div class="sec-head">
+    <div class="sec-head__label">Core Analysis</div>
+    <h2 class="sec-head__title">핵심 내용</h2>
+  </div>
+
+  <p class="body-p">MSC 2026의 표면적 풍경은 명확합니다. 메르츠 독일 총리가 "규칙 기반 국제질서는 더 이상 존재하지 않습니다"라고 선언했고, 유럽은 8,000억 유로 SAFE 프로그램과 NATO GDP 5% 목표로 역사적 재무장에 착수했습니다(3-1). 루비오 미국 국무장관은 "역사의 종말은 위험한 망상"이라며 탈냉전 세계관을 공식 폐기했고(4-2), 콜비 국방부 차관은 미국의 전략적 우선순위를 본토 → 중국 억지 → 유럽 순서로 재배치하는 'NATO 3.0'을 제시했습니다(3-3). 우크라이나 종전 협상은 안보보장 20개 항목 중 17개 합의로 구체화되고 있으며(3-2), 중국은 2차 대전 이후 최대 규모의 재래식 군사력 증강을 진행 중입니다(3-4). 여기까지는 보도된 그대로입니다.</p>
+
+  <p class="body-p">그러나 52개 세션의 디테일 속으로 들어가면, 이 풍경의 지층 구조가 달라 보이기 시작합니다.</p>
+
+  <p class="body-p">유럽 재무장의 진짜 게임 체인저는 예산이 아니라 의사결정 구조의 혁신입니다. 폰데어라이엔은 EU 조약 42조 7항을 "변경하지 않고 창의적으로 사용"하겠다며 만장일치에서 가중다수결로의 전환을 추진하고 있고(2-1), 유럽안보이사회 — EU 전체가 아닌 '의지의 연합', 헝가리를 배제하는 구조 — 가 구체적으로 제안되었습니다(1-1). 그러나 이 두 경로는 서로 긴장합니다. EU 틀 안의 혁신과 EU 밖의 별도 기구 사이에서 유럽 방위 통합의 제도적 경로는 아직 미확정이며, 이 불확실성이 방위산업 투자의 타이밍을 좌우합니다 — 종전 협상이 조기 타결될 경우 재무장 긴급성이 급감하면서 현재 열려 있는 시장 창이 좁아질 수 있습니다.</p>
+
+  <p class="body-p">현장 데이터의 디테일은 알려진 사실에도 다른 무게감을 부여합니다. 러시아의 인명 손실은 100만 명을 넘어 1945년 이후 러·소련 전체 손실을 초과했으며 1km당 156명이 희생되고 있습니다. 젤렌스키는 "방공 미사일이 바닥났다"는 전선 보고의 절박함을 전했고, 한국의 GDP 3.5% 국방비는 콜비에 의해 NATO 비회원국의 "신글로벌 표준"으로 국제무대에서 활용되고 있었습니다(2-2).</p>
+
+  <p class="body-p">시각을 한 겹 더 벗기면, 익숙한 사실들이 다르게 읽히기 시작합니다. 미국의 관세 정책에 대해 휘트머 미시간 주지사가 던진 한 문장 — "캐나다에 No라고 말하면 중국에 Yes라고 말하는 것입니다"(4-1) — 은 보호무역의 의도하지 않은 결과를 압축합니다. 같은 행정부 내에서 관세를 동맹 자립의 수단으로 보는 시각과 공급망 교란의 원인으로 보는 시각이 충돌하고 있으며, 대중국 전략 역시 "최대 500% 관세"를 주장하는 상원과 "목 졸라 죽이려 하지 않는다"는 국방부 사이에서 분기합니다(2-3). 이 공급망 재편은 핵심광물 영역에서 이미 실행 단계에 진입했습니다 — 콩고 DRC와 아르헨티나 리튬 삼각지대에서 자원국들이 단순 추출을 넘어 현지 가공 합작을 요구하고 있으며(2-4), 서방 기업들의 남미·아프리카 직접 투자가 가속되고 있습니다.</p>
+
+  <p class="body-p">이 분기는 미국 내부의 더 깊은 균열을 반영합니다. 루비오의 "탈산업화는 의식적 정책 선택이었다"는 진단과 AOC의 "극심한 소득 불평등이 권위주의로 이어진다"는 분석이 동일한 구조적 문제 — 미국 중산층의 몰락 — 를 지목하고 있다는 사실은(4-3), 미국의 양극화가 정권 교체로 해소되지 않는 상수임을 시사합니다. 미국이 내부 분열에 에너지를 소진하는 사이, 경쟁의 축은 이동하고 있습니다. 유럽은 마이크로소프트 차단 우려에서 유럽 독자 AI 모델(€10-20B 투자 필요)까지, "디지털 주권"을 새로운 안보 의제로 부상시키고 있으며, 이는 "미국도 중국도 아닌" 기술 파트너에 대한 구조적 수요를 만들어내고 있습니다. 노르웨이 외무장관의 가장 도발적인 통찰 — "재생에너지 단가가 0에 가까워지면 그 어떤 것도 따라올 수 없다, 공식대로라면 중국이 이긴다"(4-4) — 은 에너지 전환의 동력이 기후에서 AI 경쟁력으로 이동하고 있음을 드러냅니다.</p>
+
+  <p class="body-p">그리고 기사로는 접근할 수 없는 발견들이 있습니다. 러시아 전문가 슈만이 제시한 "후기 소련형 행정 마비"(1-2) — 전쟁의 끝이 "마지막 달러"가 아니라 "시스템이 작동을 멈출 때" 온다는 분석. 우주-AI 융합이 새로운 전략적 자산으로 부상하고 있다는 것(1-3, Planet은 지구 육지 모든 지점에 평균 3,000장의 이미지를 보유). NATO가 GDP 5% 중 1.5%를 식량·에너지·통신 회복탄력성에 배정하는 새 방위 독트린(1-4). 이것들은 52개 세션을 교차해야 비로소 드러나는 패턴입니다.</p>
+
+  <p class="body-p">마지막으로, 52건을 전수 확인했기에 말할 수 있는 것이 있습니다 — 논의되지 않은 것. 러시아 하이브리드 전쟁이 핵심 의제인 컨퍼런스에서 사이버 전쟁 전용 세션이 없었고, 인도태평양을 다루면서 대만 해협은 직접 의제화하지 않았으며, 미국 관세·중국 희토류·러시아 에너지 무기화를 "경제적 강압"이라는 통합 프레임으로 분석하는 세션도 부재했습니다. 보건안보는 52개 세션에서 완전히 소외되었습니다. 이 부재들이 현재 안보 담론의 구조적 사각지대이며, 한국 기업에게 가장 실질적인 위험은 오히려 이 사각지대 안에 있습니다(Silence Map).</p>
+</section>
+
+<!-- ══════════════ 인포그래픽 ══════════════ -->
+<section>
+  <div class="infographic">
+    <img src="msc2026.png" alt="인포그래픽">
+  </div>
+</section>
+
+<!-- ══════════════ 인사이트 맵 ══════════════ -->
+<section id="sec-matrix">
+  <div class="sec-head">
+    <div class="sec-head__label">Insight Matrix</div>
+    <h2 class="sec-head__title">인사이트 맵</h2>
+  </div>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th style="width:70px"></th>
+        <th>공통된 시각</th>
+        <th>새로운 시각</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-label">간과하는<br>내용</td>
+        <td>
+          <span class="q-tag q-tag--q2">Q2. Hidden Evidence</span>
+          <ul class="matrix-list">
+            <li><a href="#item-2-1">2-1. EU 8,000억€의 제도적 혁신 (42조 7항 재해석)</a><sup>[9]</sup></li>
+            <li><a href="#item-2-2">2-2. 한국 GDP 3.5% → 콜비의 "신글로벌 표준"</a><sup>[5]</sup></li>
+            <li><a href="#item-2-3">2-3. 85명 초당적 대러 제재 법안 (500% 관세)</a><sup>[12]</sup></li>
+            <li><a href="#item-2-4">2-4. 핵심광물 가치사슬 상향 (DRC·아르헨티나)</a><sup>[10]</sup></li>
+          </ul>
+        </td>
+        <td>
+          <span class="q-tag q-tag--q1">Q1. Blind Spot</span>
+          <ul class="matrix-list">
+            <li><a href="#item-1-1">1-1. 유럽안보이사회 창설 — 헝가리 배제 구조</a><sup>[7]</sup></li>
+            <li><a href="#item-1-2">1-2. 러시아 "후기 소련형 행정 마비" 시나리오</a><sup>[12]</sup></li>
+            <li><a href="#item-1-3">1-3. 우주-AI 융합 = 새로운 전략적 자산</a><sup>[1]</sup></li>
+            <li><a href="#item-1-4">1-4. NATO 회복탄력성 독트린 (GDP 5% 중 1.5%)</a><sup>[16]</sup></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="row-label">주목하는<br>내용</td>
+        <td class="matrix-cell--q3">
+          <span class="q-tag q-tag--q3">Q3. Common Ground</span>
+          <ul class="matrix-list">
+            <li><a href="#item-3-1">3-1. 유럽 역사적 재무장 선언</a><sup>[4]</sup></li>
+            <li><a href="#item-3-2">3-2. 우크라이나 종전 협상 진행</a><sup>[3]</sup></li>
+            <li><a href="#item-3-3">3-3. 미국 우선주의와 NATO 3.0</a><sup>[5]</sup></li>
+            <li><a href="#item-3-4">3-4. 중국 군사력 증강과 전략적 확신 부재</a><sup>[6]</sup></li>
+          </ul>
+        </td>
+        <td>
+          <span class="q-tag q-tag--q4">Q4. Reframing</span>
+          <ul class="matrix-list">
+            <li><a href="#item-4-1">4-1. "캐나다에 No = 중국에 Yes" (관세 역설)</a><sup>[2]</sup></li>
+            <li><a href="#item-4-2">4-2. "역사의 종말" 비판 → 자유무역 교리 폐기</a><sup>[14]</sup></li>
+            <li><a href="#item-4-3">4-3. 포퓰리즘의 본질: 좌우가 아닌 대중 vs 엘리트</a><sup>[15]</sup></li>
+            <li><a href="#item-4-4">4-4. 재생에너지 = AI 경쟁력 (기후가 아닌 산업 패권)</a><sup>[10]</sup></li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ TAKE AWAY ══════════════ -->
+<section id="sec-takeaway">
+  <div class="sec-head">
+    <div class="sec-head__label">Implications</div>
+    <h2 class="sec-head__title">Take Away</h2>
+  </div>
+
+  <p class="body-p">유럽 재무장·탈중국 공급망 재편·에너지-AI 전환이라는 세 가지 구조적 전환이 동시에 가속되면서, 방위·에너지·광물·통신 시장에 기회와 위협이 중첩되고 있습니다. 3~5년 뒤 이 시점을 돌아볼 때, 가장 중요했던 변화는 8,000억 유로라는 예산 규모가 아니라 EU 의사결정 구조의 전환(만장일치→가중다수결)이 유럽 방위시장의 접근 규칙 자체를 재설계하고 있었다는 사실일 수 있습니다. 또한 지금 논의되지 않고 있는 영역 — 사이버 전쟁의 체계적 대비, 경제적 강압의 통합 대응, 재생에너지의 AI 경쟁력 전환 — 이 다음 사이클의 핵심 의제로 부상할 가능성이 높습니다. 지금 보이는 기회와 위협 너머에서 규칙이 바뀌고 있습니다.</p>
+
+  <h3 class="sub-title">경영시사점</h3>
+
+  <div class="ta-box ta-box--threat">
+    <div class="ta-box__label">위협</div>
+    <p class="ta-box__body">85명 초당적 대러 제재 법안의 500% 관세가 중국 거래국으로 확대되면(2-3) 러시아·중국 연결 공급망이 직접 타격을 받습니다. ASML 수출 통제와 중국 희토류 보복 제한이 탈중국 재편을 강제하고 있으며(4-2), 러시아 조기 종전 시 유럽 재무장 긴급성이 급감하는 시나리오 리스크도 존재합니다. 미국 양극화가 정권 교체와 무관한 상수로 고착되면서(4-3) 정책 예측 가능성이 구조적으로 낮아지고 있습니다.</p>
+  </div>
+
+  <div class="ta-box ta-box--opportunity">
+    <div class="ta-box__label">기회</div>
+    <p class="ta-box__body">유럽 방위산업의 수요는 자체 생산능력을 초과하고 있어 K-방산(K2, K9, FA-50)과 드론·무인체계에 구조적 시장이 열리고 있습니다(3-1). 다만 현지 조달 의무와 기술이전 요구가 강화되는 추세여서 조기 파트너십 확보가 진입 조건입니다. NATO의 새 회복탄력성 독트린은 GDP 5% 중 1.5%를 식량·에너지·통신에 배정하면서 방위 수요를 비군사 영역까지 확장하고 있고(1-4), 핵심광물은 콩고 DRC·아르헨티나에서 현지 가공 합작이라는 새로운 진입 모델이 열리고 있습니다(2-4). 재생에너지 단가 하락이 AI 경쟁력을 좌우하는 구조 전환(4-4)은 SMR-데이터센터-ESS에 안보 경제적 프리미엄을 부여하며, 종전 협상 95-97% 완성(3-2) 이후 우크라이나 재건 시장도 열립니다.</p>
+  </div>
+
+  <div class="ta-box ta-box--decision">
+    <div class="ta-box__label">의사결정</div>
+    <p class="ta-box__body" style="margin-bottom:6px">① <strong>공급망 전환</strong> — 러시아·중국 연결 공급망의 2차 제재 노출도를 즉시 진단하고 남미 직접 투자(2-4)·프렌드쇼어링 편입(4-2)으로 대안을 확보할 것인가. 제재 확대 시 전환 비용은 기하급수적으로 증가하므로 선제 전환의 시간 가치가 큽니다.</p>
+    <p class="ta-box__body" style="margin-bottom:6px">② <strong>유럽 방위시장 타이밍</strong> — 종전 전에 수출 계약을 선확보할 것인가. 키이우 EU 방위혁신사무소(2-1)와 뮌헨 Defense Tech 클러스터가 진입 채널이며, 조기 종전 시나리오에서는 이 창이 급속히 좁아집니다.</p>
+    <p class="ta-box__body" style="margin-bottom:6px">③ <strong>에너지-AI 넥서스 선점</strong> — SMR-데이터센터 연계와 핵심광물 현지 합작에서 선점 포지션을 잡을 것인가. 이 영역에서의 위치가 중기 경쟁력의 분기점입니다.</p>
+  </div>
+
+
+  <h3 class="sub-title">LG시사점</h3>
+
+  <div class="ta-box ta-box--threat">
+    <div class="ta-box__label">위협</div>
+    <p class="ta-box__body">2차 제재 확대 시 화유코발트(Huayou Cobalt)와의 양극재·리사이클링 합작(구미·인도네시아·모로코)이 미국 PFE 규정에 노출되며, 중국의 인조흑연 수출 통제(2025.11 발효)가 배터리 소재 공급을 직접 압박합니다(LG에너지솔루션, LG화학). 유럽 방위시장의 현지 조달 의무 강화는 기존 폴란드 생산 거점(EUR 32억)을 넘어서는 현지화를 요구할 수 있습니다(LG에너지솔루션). 조기 종전 시나리오에서는 유럽 방위 투자 긴급성이 급감하면서 에너지·소재 수요 확대 기대가 축소될 수 있으며(LG 전사), 양자내성암호(PQC)·AI 에이전트(ixi-O)를 내세운 글로벌 확장이 아직 중동·일본 시장 초기 단계에 머물러 유럽 안보 통신 시장까지는 거리가 있습니다(LG유플러스).</p>
+  </div>
+
+  <div class="ta-box ta-box--opportunity">
+    <div class="ta-box__label">기회</div>
+    <p class="ta-box__body">폴란드 브로츠와프 거점(EUR 32억, ~86GWh)에서 ESS LFP 생산 전환이 진행 중이고 PGE 981MWh 그리드 ESS 계약이 확보되어, 8,000억 유로 방위 투자가 창출하는 에너지 수요의 교두보가 마련되어 있습니다(LG에너지솔루션). 위협으로 식별한 탈중국 재편이 역설적으로 만드는 기회로, 구미 양극재 JV의 중국 지분 축소(49%→24%)·테네시 양극재 공장($32억, 2026 가동)·한국전구체(KPC) 등 프렌드쇼어링 공급망이 이미 가동 중이며, 경량 엔지니어링 플라스틱(금속 대비 20~30% 경량)이 드론 등 방위용 특수소재 영역을 열고 있습니다(LG화학). NATO 회복탄력성 독트린이 통신을 방위의 핵심 축으로 격상(1-4)한 가운데, PQC 상용 제품 5종 보유와 국내 군 통신망 SDN 통합 수주(LG CNS)가 안보 통신의 기반 역량이며(LG유플러스, LG CNS), 유럽 가전 매출 5년 내 2배 목표·ThinQ AI 유럽 출시·폭스바겐향 V2X 보안 인증(CC)이 디지털 주권 수요에 부합합니다(LG전자). K-EXAONE — 글로벌 7위이자 미·중 외 유일한 Top-10 오픈 모델 — 과 한국 소버린 AI 전략이 유럽 독자 AI 투자(€10-20B)에서 "제3의 AI 파트너" 포지셔닝의 실질적 자산입니다(LG AI연구원).</p>
+  </div>
+
+  <div class="ta-box ta-box--decision">
+    <div class="ta-box__label">의사결정</div>
+    <p class="ta-box__body" style="margin-bottom:6px">① <strong>공급망 탈중국 가속</strong> — 화유코발트 합작의 PFE 리스크를 구미(지분 축소 완료)에 이어 모로코·인도네시아 JV까지 확대 점검하고, 캐나다 리튬 직접 계약(5건 확보)·테네시 양극재 공장(2026 가동)으로의 전환 속도를 결정해야 합니다(LG에너지솔루션, LG화학).</p>
+    <p class="ta-box__body" style="margin-bottom:6px">② <strong>에너지-안보 포지셔닝</strong> — 폴란드 ESS LFP 거점과 마이크로소프트 데이터센터 냉각 인프라 공급을 기반으로, SMR-데이터센터-ESS 연계에서 안보 경제 프리미엄의 포지션을 확보할 것인가(LG에너지솔루션, LG전자).</p>
+    <p class="ta-box__body" style="margin-bottom:6px">③ <strong>안보 통신·PQC 확장</strong> — 국내 군 통신망 통합(LG CNS)과 PQC 상용화(LG유플러스)의 실적을 기반으로, NATO 통신 현대화와 유럽 6G 보안 시장에 진입할 것인가(LG유플러스, LG CNS).</p>
+    <p class="ta-box__body" style="margin-bottom:6px">④ <strong>소버린 AI 파트너십</strong> — K-EXAONE의 글로벌 Top-10 역량과 한국 소버린 AI 전략을 자산으로, 유럽 독자 AI 공동 연구 파트너십을 선점할 것인가(LG AI연구원).</p>
+    <p class="ta-box__body" style="margin-bottom:6px">⑤ <strong>사업부 교차점의 기회·위협 통합 탐지</strong> — 방위·에너지·광물·기술·통신의 교차점에서 발생하는 기회와 위협은 개별 사업부 단위로는 포착하기 어려우며, 구조적 사각지대를 선제 탐지하고 정보의 독점적 가치를 식별할 것인가. 2023년 설립된 LG글로벌전략개발원(2026.1 외교관 출신 원장 취임)에 1차 데이터 전수 분석 상시화, Silence Analysis, 인사이트 맵 프레임워크를 추가하는 것이 이를 위한 도구입니다(LG 그룹).</p>
+  </div>
+
+
+  <p class="notice">본 브리프는 Plex/Database에 탑재된 MSC 2026 전 세션(52건) 를 구조화된 프롬프트와 MCP/Claude Code를 통해 결합시켜 생성한 Auto Report입니다. 분석 프로세스는 다음과 같습니다.  ① 전수 스캔 → ② 4개 축 심층 독해(유럽 방위 · 우크라이나/러시아 · 미국 정치 · 인도태평양/자원) → ③ 교차분석 + Silence Analysis → ④ 인사이트 맵 + Silence Map 배치 → ⑤ 통합 / Claude  지식/검색 결과와 비교(3 라운드) 후 최종 보고서 생성. 데이터 소스: msc2026 library, 2026-02-15.</p>
+</section>
+
+<!-- ══════════════ Q3. Common Ground ══════════════ -->
+<section id="sec-q3">
+  <div class="sec-head">
+    <div class="sec-head__label">Appendix — Q3. Common Ground</div>
+    <h2 class="sec-head__title">즉각적인 논의가 필요한 토픽</h2>
+  </div>
+  <p class="body-p" style="color:var(--muted);font-size:15px;margin-bottom:32px;">즉각적인 논의가 필요한 토픽 · 주요 보도와 일치하되 현장 데이터로 깊이를 더한 인사이트</p>
+
+  <div class="insight-item" id="item-3-1">
+    <div class="insight-item__id">3-1</div>
+    <h3 class="insight-item__title">유럽 재무장의 역사적 전환</h3>
+    <p class="body-p">메르츠 총리의 "힘의 언어" 선언, 8,000억 유로 SAFE 프로그램, NATO GDP 5% 목표가 유럽의 역사적 재무장을 구성합니다. 유럽의 GDP가 러시아의 10배이나 군사력이 부족하고, 독일은 연방군을 "유럽에서 가장 강력한 재래식 군대"로 육성하겠다며 헌법 개정을 완료했습니다. 리투아니아에 독일 여단이 영구 배치된 것은 독일군 역사상 최초의 해외 영구 주둔이며, 인도와 EU 자유무역협정 체결, EU-메르코수르 FTA 잠정 적용 등 경제적 파트너십 확대가 동시에 진행되고 있습니다. 이 전환은 방위기술 클러스터 부상과 전시 공동 생산 개시로 이미 산업적 구현 단계에 진입했습니다.</p>
+    <div class="bq">
+      <p class="bq__text">규칙 기반 국제질서가 파괴되고 있다고 말하는 것만으로는 충분하지 않습니다. 국제질서는 더 이상 존재하지 않습니다. 우리는 다시 한번 힘과 강대국 정치가 공개적으로 지배하는 시대에 진입했습니다.</p>
+      <span class="bq__attr">프리드리히 메르츠, 독일 총리 | 컨퍼런스 개막 + 유럽과 세계 속의 독일 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">뮌헨 방위기술(Defense Tech) 클러스터<sup>[4]</sup></div>
+      <p class="case-block__body">메르츠 총리와 죄더 바이에른 주총리는 뮌헨이 방공·원거리 타격·위성 기술에 집중하는 방위기술 클러스터로 급부상하고 있다고 강조했다. 독일은 새로운 공장 개장, 일자리 창출, 신기술 개발을 통해 방위산업 생태계를 재건 중이며, 특히 Stark(AI 기반 드론 통합 시스템), Command AI(AI 지휘통제 시스템) 등 스타트업과의 협력으로 미래 전투 기술을 빠르게 도입하고 있다. 한국 방위산업 기업(한화에어로스페이스, LIG넥스원 등)은 뮌헨 클러스터 내 독일 기업과의 기술 협력, 공동 R&D, 합작법인 설립을 통해 유럽 방위 가치사슬에 진입하는 전략을 검토할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">독일-우크라이나 공동 드론 생산(2026.2.14 개시)<sup>[4][9]</sup></div>
+      <p class="case-block__body">독일과 우크라이나는 MSC 2026 전날인 2월 14일 공동 드론 생산을 공식 개시했다. 우크라이나의 실전 경험과 독일의 산업 역량을 결합하는 이 모델은, 폰데어라이엔 EU 집행위원장이 키이우에 설립한 EU 방위혁신사무소와 함께 "유럽의 규모와 우크라이나의 속도·창의성을 결합"하는 새로운 협력 패러다임을 형성한다. 덴마크 프레데릭센 총리 주도로 우크라이나 내 무기 생산에 직접 투자하는 모델도 병행되고 있어, 한국 드론·무인체계 기업이 유럽-우크라이나 공동 생산 프레임에 기술 파트너로 참여할 경로가 열리고 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">영국의 지역 방위 성장 협정과 유럽 방위 가치사슬 진입<sup>[8]</sup></div>
+      <p class="case-block__body">스타머 영국 총리는 영국 전역에서 5개의 지역 방위 성장 협정(Regional Defense Growth Deals)을 추진하며, 영국 기업들이 유럽 대륙 방위산업 기반의 25% 이상을 차지하고 약 239,000명을 고용하고 있다고 밝혔다. 영국은 독일·이탈리아·프랑스와 차세대 장거리 미사일을 공동 개발하고, 노르웨이와 역사상 최대 규모의 군함 계약을 체결했다. 브렉시트 후에도 유럽 방위 가치사슬의 핵심 행위자로 남으려는 영국의 전략은, 한국이 비EU 국가로서 유럽 방위시장에 진입할 때 영국을 통한 우회 접근 경로의 모델이 될 수 있다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-3-2">
+    <div class="insight-item__id">3-2</div>
+    <h3 class="insight-item__title">우크라이나 종전 협상 진행</h3>
+    <p class="body-p">안보보장 20개 항목 중 17개가 합의되고 아부다비 3자 형식이 2회 개최되어 95~97% 완성 단계에 이르렀으며, 종전 후 질서의 설계가 생각보다 빠르게 구체화되고 있습니다. 안보보장은 법적 구속력 있는 양자 협정(미국 의회 비준), 지상군 배치(유럽 연합+미국 백스톱), EU 가입, 강력한 우크라이나군 자체 억지력의 4단계 구조로 설계되어 있으며, 프랑스·영국 등 30개국 이상의 연합이 휴전 후 안보보장 배치를 준비 완료한 상태입니다. 블루멘탈 상원의원이 "미국 군수업체들을 놀라게 할 정도의 속도"라 평가한 우크라이나 드론 생산과, 독일·체코·덴마크·노르웨이·영국·프랑스 등과의 공동 무기 생산 체계 구축은 전후 우크라이나 방위산업 생태계가 유럽 방위 통합의 핵심 축이 될 수 있음을 시사합니다.</p>
+    <div class="bq">
+      <p class="bq__text">2026년 1월 파리 회의에서 우리는 안보 보장의 95~97%를 완성했습니다. 트럼프 대통령이 '나도 참여하고 싶다'고 말한 것이 결정적 순간이었습니다.</p>
+      <span class="bq__attr">마크 뤼터, NATO 사무총장 | 능력 있는 자들의 연합: 우크라이나를 위한 장기 지원 확보 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">우크라이나의 드론 생산 역량과 한국의 파트너십 기회<sup>[11]</sup></div>
+      <p class="case-block__body">블루멘탈 상원의원이 "미국 군수업체를 놀라게 할 속도"라 평가한 우크라이나의 드론 생산은, 수천 대 규모의 생산 시설이 이미 가동 중이며 러시아 공격 드론의 약 90%를 격추하는 방어 역량을 구축했다. 독일·체코·덴마크·노르웨이·영국·프랑스·터키 등과 공동 무기 생산 체계가 확립되었고, 젤렌스키 대통령은 일본까지 유지연합에 합류했다고 밝혔다. 전후 우크라이나는 유럽 방위산업 생태계의 핵심 축으로 부상할 전망이며, 한국 드론·방산 기업은 우크라이나의 실전 검증된 기술과 한국의 양산 역량을 결합하는 파트너십을 조기에 구축해야 한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">종전 후 안보보장 배치와 재건 시장 진입<sup>[11][3]</sup></div>
+      <p class="case-block__body">시비하 우크라이나 외교장관은 안보보장의 4단계 구조(법적 양자 협정+유럽 지상군+EU 가입+자체 억지력)를 설명하며, "지상군 배치가 투자자들에게 안전 신호를 보내 비즈니스 기회를 창출한다"고 밝혔다. 프랑스·영국 등 30개국 이상이 휴전 후 안보보장 배치를 준비 완료한 상태이며, 독일은 우크라이나 에너지 복구 기금 최대 후원자로서 거의 50억 달러에 가까운 지원을 제공했다. 한국 기업은 안보보장 배치 완료 후 우크라이나 재건 시장(인프라·에너지·통신)에 조기 진입하기 위한 파트너십과 프로젝트 파이프라인을 사전에 구축해야 한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">스타링크의 전장 역할과 민간 기술의 전략적 가치<sup>[11]</sup></div>
+      <p class="case-block__body">스타링크(SpaceX)이 러시아군의 우크라이나 내 시스템 사용을 차단한 것은 전장 역학에 상당한 영향을 미쳤다. 바로 프랑스 외교장관은 이 결정이 러시아 작전에 실질적 타격을 주었다고 평가했으며, 이는 민간 기업의 기술이 전쟁 상황에서 전략적 무기로 전환될 수 있음을 보여준다. 유럽에서 마이크로소프트 의존 우려(라고딘스키: "마이크로소프트가 시스템을 차단할 수 있다")와 디지털 주권 논의가 확대되는 상황은, 한국 IT·통신·위성 기업에 유럽 시장 진출의 기회이자 자사 기술의 안보적 활용 가능성과 지정학적 리스크를 동시에 평가하는 체계를 갖추어야 할 과제를 제시한다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-3-3">
+    <div class="insight-item__id">3-3</div>
+    <h3 class="insight-item__title">미국 우선주의와 NATO 3.0</h3>
+    <p class="body-p">콜비의 NATO 3.0 개념은 미국 전략 우선순위를 본토 → 중국 억지 → 유럽 순서로 재배치하며, 1950년대 군사동맹 본질로의 회귀를 의미합니다. 미국 국방예산 1.5조 달러 추진과 함께 "현대 분쟁은 생산의 전쟁"이라는 인식이 정책화되고 있으며, 대중국 접근은 "강하고 명확하되 조용한(Strong and Clear but Quiet)" 기조로 "목 졸라 죽이려 하지 않는다"는 현실주의적 관여를 표방합니다. 그러나 뉴섬 주지사가 같은 무대에서 트럼프를 "외래종(invasive species)"으로 규정하며 "공화국이 실시간으로 파괴되고 있다"고 경고한 것은 미국 내 양극화가 대외정책의 일관성을 구조적으로 훼손하는 상수임을 드러냅니다. 연방 차원의 정책 불확실성 속에서 주정부가 독자적 외교·안보 협력을 수행하는 새로운 양상이 관찰되며, 이는 한국 기업의 미국 파트너십 전략에서 지방정부 차원의 접근이 중요해지고 있음을 시사합니다.</p>
+    <div class="bq">
+      <p class="bq__text">NATO 3.0는 유연한 현실주의와 실용적 결과 지향적 사고방식을 특징으로 합니다. 유럽이 자체 재래식 방어에 일차적 책임을 지고 미국이 이를 뒷받침하는 구조가 더 공평하고 지속가능합니다.</p>
+      <span class="bq__attr">엘브리지 콜비, 미국 국방부 정책차관 | 괜찮은 평화: 인도-태평양 지역의 미국 대화 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">캘리포니아-다이렉트 릴리프 우크라이나 지원 모델<sup>[13]</sup></div>
+      <p class="case-block__body">캘리포니아 주정부는 세계 최대 규모의 비영리 단체 중 하나인 다이렉트 릴리프와 협력하여 우크라이나에 22억 달러 이상의 구호 물품(특히 의료 물품)을 제공했다. 캘리포니아 주 방위군은 러시아 침공 이전부터 우크라이나군을 훈련시켜왔으며, 야전 병원 7개를 파견했다. 뉴섬 주지사는 이 사례를 "아래에서 위로(bottom-up)" 외교 모델로 제시했으며, 연방정부의 정책 변동과 무관하게 지방정부가 국제 인도주의 지원과 안보 협력을 독자적으로 수행할 수 있음을 입증했다. 한국 지자체와 기업은 미국 주정부와의 직접 파트너십(경제 협력, 기술 교류, 투자 유치)을 통해 연방 정책 변동 리스크를 헤지하는 전략을 강화할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">헤센(독일)-위스콘신(미국) 지방정부 간 파트너십<sup>[13]</sup></div>
+      <p class="case-block__body">헤센 주지사 보리스 라인은 "누가 대통령인지보다 함께 모이는 사람들이 관계를 특별하게 만든다"며, 학생 교류·과학 파트너십·경제 협력 등 다층적 관계가 정치적 변동에 영향을 덜 받는다고 강조했다. 헤센 주에는 1,000명 규모의 미국 총영사관과 대규모 미국인 커뮤니티가 존재하며, 프랑크푸르트 공항과 금융 중심지라는 이점을 활용한 유럽 진출 허브 역할을 하고 있다. 한국 기업의 유럽 진출 시 국가 수준 정책 변동에 덜 영향받는 지방정부·도시 수준 파트너십 구축이 안정적 사업 기반을 제공할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">한국의 GDP 3.5% 국방비 약속과 동맹 레버리지<sup>[5]</sup></div>
+      <p class="case-block__body">콜비 국방부 정책차관은 한국이 NATO 비회원국 최초로 GDP 3.5% 국방비 지출을 약속한 것을 "새로운 글로벌 표준"의 모범 사례로 제시했다. 이는 한국이 트럼프 행정부의 부담 분담 요구에 선제적으로 대응함으로써 동맹 관계에서의 협상력을 확보한 사례다. 그러나 뉴섬이 경고한 미국 내 양극화가 대외정책의 일관성을 구조적으로 훼손하는 현실에서, 한국은 국방비 증액을 넘어 방위산업 자체 역량(자주 국방)을 강화하는 동시에 유럽·일본·호주 등 동맹 네트워크를 다변화하는 복합 전략이 필요하다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-3-4">
+    <div class="insight-item__id">3-4</div>
+    <h3 class="insight-item__title">중국 군사력 증강과 전략적 확신 부재</h3>
+    <p class="body-p">2차 대전 이후 최대 규모의 재래식 군사력 증강을 진행 중이나, 증강의 목적에 대한 전략적 확신을 주지 못하고 있습니다. 베이징 군사 퍼레이드에서 푸틴-김정은이 시진핑을 양쪽에서 에워싼 장면은 러-중-북 새로운 축의 상징이며, 중국이 희토류 시장을 장악하고 정제 과정을 통제하며 수출 제한을 행사하는 경제적 강압은 군사적 증강과 병행되는 비군사적 위협입니다. 콜비가 "규범 기반 국제질서라는 용어는 실용적 논의를 방해한다"고 규정한 것은 미국이 중국에 대해 가치가 아닌 이익 중심의 접근으로 전환하고 있음을 시사하며, 인도태평양-유럽 간 방위산업 협력이 이 증강에 대응하는 구체적 실행으로 가속화되고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">호주가 직면한 세계 전략적 복잡성을 규정하는 가장 큰 요인은 제2차 세계대전 이후 가장 대규모의 재래식 군사력 증강을 중국이 진행하고 있다는 점입니다. 하지만 중국은 이러한 증강을 전략적 확신을 주지 못하는 상태로 진행하고 있습니다.</p>
+      <span class="bq__attr">리처드 마를스, 호주 부총리 겸 국방부 장관 | 이중 위협: 유럽, 인도태평양, 그리고 연결된 안보 과제 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">일본-영국-이탈리아 차세대 전투기(GCAP) 공동 개발<sup>[6]</sup></div>
+      <p class="case-block__body">일본 외무대신은 영국·이탈리아와 함께 차세대 전투기를 공동 개발하고 있으며, 영국 전투기의 일본 방문과 일본 F-15의 유럽 방문 등 군사 교류가 활발히 진행 중이라고 밝혔다. 이 프로젝트는 NATO와 같은 공식 군사 동맹이 없는 인도태평양 지역에서 유럽과의 다층적 안보 네트워크를 구축하는 상징적 사례로, 일본 외무대신이 "오늘의 우크라이나가 내일의 동아시아"라 경고한 맥락에서 추진되고 있다. 한국 방위산업(KF-21 보라매 등)은 GCAP 모델을 참고하여 유럽 국가들과의 차세대 무기체계 공동 개발·수출 파트너십을 모색할 수 있으며, 특히 폴란드·루마니아 등 NATO 동부 전선 국가들과의 방산 협력 확대가 유력한 경로다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">호주의 자체 방위력 강화+동맹 네트워크 다변화 이중 전략<sup>[6]</sup></div>
+      <p class="case-block__body">호주 부총리 마를스는 중국의 "전략적 확신 부재" 상태의 군사력 증강에 대응하여, 자체 국방비를 대폭 늘리면서 동시에 미국·일본과의 억지력 강화 협력을 심화하고 있다고 밝혔다. 마를스는 트럼프 행정부와의 소통에 "매우 만족"하고 있으며, 인도태평양에서 공동 억지력을 구축하는 방식으로 미국의 부담 분담 요구에 대응하고 있다. 뉴질랜드 콜린스 국방장관도 "스스로 안보 비용을 부담할 준비가 되어 있지 않다면, 왜 미국 납세자들이 부담해야 하는가"라며 자체 방위력 강화의 논리를 대변했다. 이 모델은 한국이 "자주 국방+동맹 다변화"를 동시에 추진하고, 호주·일본·인도 등 중견국 연합을 통해 대중국 억지력에서의 역할을 확대하는 참조 전략이 된다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">중국 희토류 수출 통제에 대한 공급망 다변화<sup>[2][10]</sup></div>
+      <p class="case-block__body">휘태커 NATO 대사가 "중국이 희토류 시장을 장악하고 정제 과정을 통제하며 수출을 제한하는 경제적 강압"이라 지적한 대로, 중국의 비군사적 위협은 군사적 증강과 병행되고 있다. MSC에서는 콩고 DRC의 트럼프 행정부와 양자 전략적 파트너십 협정 체결, 아르헨티나 리튬 삼각지대에 BHP·Rio Tinto·Glencore 투자 유치 등 대안 공급원 확보가 긴급 과제로 논의되었다. 한국 배터리·반도체·소재 기업은 중국 의존도가 가장 높은 핵심광물(코발트, 리튬, 희토류, 갈륨, 게르마늄 등)에 대해 자원국 직접 투자, 재활용 기술 개발, 대체 소재 R&D를 병행하는 공급망 리스크 관리 전략을 체계화해야 한다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ Q2. Hidden Evidence ══════════════ -->
+<section id="sec-q2">
+  <div class="sec-head">
+    <div class="sec-head__label">Appendix — Q2. Hidden Evidence</div>
+    <h2 class="sec-head__title">실행에서 주목할 토픽</h2>
+  </div>
+  <p class="body-p" style="color:var(--muted);font-size:15px;margin-bottom:32px;">실행에서 주목할 토픽 · 알려진 사실이지만 현장 데이터가 부여하는 독점적 무게감</p>
+
+  <div class="insight-item" id="item-2-1">
+    <div class="insight-item__id">2-1</div>
+    <h3 class="insight-item__title">SAFE 프로그램의 제도적 혁신</h3>
+    <p class="body-p">8,000억 유로의 규모가 아니라, 폰데어라이엔이 EU 조약 42조 7항 상호방위 의무와 가중다수결을 결합하는 법적·제도적 혁신을 제안한 것이 핵심입니다. 유럽이 20종 이상의 호위함, 10종 전투기, 10종 이상의 주력전차를 보유하는 반면 미국은 주력전차 1종만 운용하는 구조를 "극도로 비효율적이며 집단 안보를 해침"으로 진단하고, 우크라이나 전장에서 드론이 양측 전투 피해의 약 80%를 야기하는 현실이 이 혁신의 긴급성을 뒷받침합니다. 이 제도적 혁신은 이미 구체적인 방위산업 협력 — 이중용도 기술의 신속 시장 진입 촉진, 다국적 차세대 무기체계 공동 개발 — 으로 구체화되고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">상호방위는 유럽연합의 선택적 과제가 아니라 우리 조약 내 의무입니다. 조약 42조 7항이 바로 그것입니다. 더 빠른 의사결정을 해야 하며, 이는 만장일치가 아닌 가중다수결에 의존하는 것을 의미할 수 있습니다. 조약을 변경할 필요가 없습니다. 우리가 가진 조약을 사용하고 창의적이어야 합니다.</p>
+      <span class="bq__attr">우르줄라 폰데어라이엔, EU 집행위원장 | 원칙 있고 실용적인 힘의 행사: 혼란한 세계에서의 대화 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">키이우 EU 방위혁신사무소<sup>[9]</sup></div>
+      <p class="case-block__body">EU가 우크라이나 수도 키이우에 설립한 방위혁신 전용 사무소로, AI·사이버·드론·우주 분야의 이중용도 기술이 민간에서 군사 시장으로 신속 진입할 수 있도록 인증·조달 절차를 간소화하고 있다. 유럽 방위 조달 체계에 비EU 기업이 참여할 수 있는 경로를 마련하고 있어, 한국 방위·기술 기업의 유럽 시장 진입 거점으로 활용할 수 있는 채널이다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">영국-독일-이탈리아-프랑스 차세대 장거리 미사일 공동 개발<sup>[8]</sup></div>
+      <p class="case-block__body">4개국이 차세대 정밀타격 미사일을 공동 개발하기로 합의한 사례로, 유럽 방위산업 통합이 구호 단계를 넘어 구체적 무기 체계 개발로 이행되고 있음을 보여준다. 이러한 다국적 공동 개발 프로젝트에 부품·소재 공급자로 참여하는 것이 K-방산의 유럽 생태계 편입 전략의 핵심 경로다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">영국 방위산업 성장 협정<sup>[8]</sup></div>
+      <p class="case-block__body">영국 방위산업은 유럽 대륙 방위산업 기반의 4분의 1 이상을 점유하며 239,000명을 고용하고 있다. 웨일스 등 5개 지역과 방위 성장 협정(Defence Growth Pact)을 체결하여 지역 경제와 방위산업을 연계하는 모델을 구축했으며, 방위 투자가 산업 생태계와 고용을 창출하는 선순환 구조를 보여준다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-2-2">
+    <div class="insight-item__id">2-2</div>
+    <h3 class="insight-item__title">한국 GDP 3.5%의 &quot;신글로벌 표준&quot; 활용</h3>
+    <p class="body-p">콜비 국방부 차관이 한국의 GDP 3.5% 국방비를 NATO 비회원국의 모범 사례로 국제무대에서 제시했습니다. 한국의 국방비 증액이 미국의 동맹 비용분담 논리에서 글로벌 레버리지로 활용되고 있는 새로운 맥락입니다. 미국은 전략 우선순위를 본토 → 중국 억지(제1도련선) → 유럽/NATO 순서로 재배치하면서 국방예산 1.5조 달러를 추진하고 방위산업 기반의 "역사적 개혁"을 "국가 동원의 성격"으로 규정했으며, 폴란드·리투아니아·라트비아·에스토니아는 이미 GDP 5% 수준의 투자를 진행 중입니다. 한국(K2 전차, K9 자주포, FA-50)이 유럽 수출을 확대할 수 있는 구조적 기회가 이 맥락에서 형성되고 있으며, 호주 마를스 부총리가 국방비 증액과 미국 안보 협력 심화를 동시 추진하는 모범 사례로 제시된 것은 한국과 유사한 동맹국 포지셔닝의 참고 모델입니다.</p>
+    <div class="bq">
+      <p class="bq__text">한국을 방문했을 때 한국이 NATO 비회원국 중 최초로 GDP 3.5%의 국방비 지출을 약속했습니다. 이것이 새로운 글로벌 표준입니다.</p>
+      <span class="bq__attr">엘브리지 콜비, 미국 국방부 정책차관 | 괜찮은 평화: 인도-태평양 지역의 미국 대화 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">폴란드의 한국산 무기 대규모 도입<sup>[5]</sup></div>
+      <p class="case-block__body">폴란드는 GDP 5% 수준의 국방비를 투자하며 한국산 K2 전차 1,000대, K9 자주포 672문, FA-50 전투기 48대를 계약하는 등 NATO 동맹국 중 가장 적극적인 군비 확충을 추진하고 있다. 유럽 국가가 미국산 대신 한국산 무기를 대규모로 선택한 최초의 사례로, 가격 경쟁력·신속 납기·기술 이전의 결합이 유럽 시장 진출의 핵심 성공 요인임을 입증한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">이스라엘의 &quot;모범 동맹국&quot; 포지셔닝<sup>[5]</sup></div>
+      <p class="case-block__body">콜비가 이스라엘을 "모범 동맹국(Model Ally)"으로 언급한 것은, 이스라엘이 미국의 안보 지원을 받으면서도 자체 방위산업(아이언돔, 메르카바 전차, 트로피 능동방호체계 등)을 세계적 수준으로 육성한 모델을 가리킨다. 미국 지원에 의존하되 독자 기술력으로 수출 경쟁력을 확보하는 이스라엘 모델은 K-방산의 글로벌 시장 전략에 직접적으로 참조할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">호주의 국방비 증액+미국 협력 병행 모델<sup>[6]</sup></div>
+      <p class="case-block__body">호주는 국방비를 대폭 증액하면서 AUKUS를 통한 핵추진 잠수함과 첨단 기술 확보를 병행하여, 미국의 동맹 비용분담 요구에 능동적으로 대응하는 모범 사례로 평가된다. 한국이 GDP 3.5%를 "신글로벌 표준"으로 활용하면서 독자 방위산업 역량을 강화하는 전략의 참고 모델이다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-2-3">
+    <div class="insight-item__id">2-3</div>
+    <h3 class="insight-item__title">85명 초당적 대러 제재 법안</h3>
+    <p class="body-p">그레이엄-블루멘탈 법안은 러시아 에너지 구매국에 최대 500% 관세 권한을 부여하며, 미국 상원 100석 중 85명이 공동발의한 전례 없는 초당적 합의입니다. 법안은 대통령에게 0~500% 관세 부과 권한을 부여하되 3년 후 자동 만료하며 관세 수익을 우크라이나 재건에 사용할 수 있도록 설계되었습니다. 인도 사례가 보여주듯 2차 제재의 경제적 압박은 제3국의 행동을 실제로 변화시키고 있으며, 에너지 제재가 군사적 해상 봉쇄로까지 확대되면서 제재의 실행 강도가 전례 없는 수준으로 높아지고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">85명의 공동 발의자를 확보했습니다. 미국 상원에서 85명의 의원이 무언가에 동의하게 하는 것이 얼마나 어려운지 아십니까? 푸틴은 미국 상원을 단합시키는 데 미국의 누구보다 더 많은 일을 했습니다.</p>
+      <span class="bq__attr">린지 그레이엄 상원의원 | 러시아의 현황에 대한 조명: 공공 광장 | 2026.2.15</span>
+    </div>
+    <div class="bq">
+      <p class="bq__text">중국은 여기서 독성 요소입니다. 세계에 8개의 정말 큰 정유소가 있는데, 가장 큰 정유소들은 중국에 있으며 그들은 러시아에 공작기계와 군수품을 제공하고 있습니다.</p>
+      <span class="bq__attr">리처드 블루멘탈 상원의원 | 러시아의 현황에 대한 조명: 공공 광장 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">인도의 대러 석유 구매 전략 전환<sup>[12]</sup></div>
+      <p class="case-block__body">인도는 전쟁 전 러시아 석유 구매 비중 3%에서 전쟁 후 할인된 러시아 석유를 대량 구매하며 30%까지 급등시켰으나, 트럼프 행정부의 25% 관세 부과 후 구매를 다시 감소시켰다. 2차 제재의 경제적 압박이 실제로 제3국의 행동을 변화시킬 수 있음을 입증하며, 500% 관세 법안이 현실화될 경우 한국 기업의 공급망에 미칠 영향을 예측하는 핵심 참고 사례다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">중국 정유 산업의 러시아 전쟁 지원 구조<sup>[12]</sup></div>
+      <p class="case-block__body">블루멘탈 상원의원에 따르면 세계 8대 정유소 중 최대 규모는 중국에 위치하며, 중국은 러시아 원유를 정제하는 동시에 공작기계·군수품을 러시아에 공급하여 전쟁 지속의 핵심 기반을 제공하고 있다. 500% 관세 법안이 중국을 타깃으로 확대될 경우, 중국 공급망에 깊이 연결된 한국 기업이 연쇄적 영향을 받을 수 있어 대중국 공급망 의존도의 사전 진단과 대안 확보가 시급하다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-2-4">
+    <div class="insight-item__id">2-4</div>
+    <h3 class="insight-item__title">핵심광물 가치사슬 상향 전략</h3>
+    <p class="body-p">자원국들이 단순 추출에서 가치사슬 상향으로 전환하는 구체적 실행 단계에 진입했습니다. 아르헨티나는 전 세계 리튬 매장량의 20%를 보유하며 볼리비아·칠레와 리튬 삼각지대를 형성하고 있고, 콩고 DRC는 2024년 12월 트럼프 행정부와 양자 전략적 파트너십 협정을 체결하여 코발트·구리의 가공·제조 단계로의 이동을 추진하고 있습니다. 트럼프 행정부가 역대 최대 규모의 핵심광물 거래를 두 배로 확대하겠다고 발표한 것은 자원 확보 경쟁이 외교적 우선순위로 격상되었음을 의미하며, 글로벌 광업 기업들의 남미 투자 가속은 투자 환경 전환의 신호입니다.</p>
+    <div class="bq">
+      <p class="bq__text">현 정부는 패러다임을 전환하여, 수십 년간 이어진 천연자원 추출에만 기반한 접근에서 벗어나, 콩고민주공화국이 가치사슬에서 더 큰 위치를 차지하도록 나아가고 있습니다.</p>
+      <span class="bq__attr">바그너 장관, 콩고민주공화국 에너지 장관 | 원자재의 지정학: 자원 패널 토론 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">BHP·Rio Tinto·Glencore의 아르헨티나 리튬 투자<sup>[10]</sup></div>
+      <p class="case-block__body">세계 3대 광업 기업이 아르헨티나 리튬 삼각지대(아르헨티나·볼리비아·칠레, 전 세계 리튬 매장량의 약 55%)에 대규모 투자를 확대하고 있다. 밀레이 정부의 투자 친화적 규제 개혁이 외국인 투자 신뢰를 높인 것이 결정적 요인이며, 한국 배터리 기업이 리튬 공급원을 중국 의존에서 남미 직접 확보로 전환하는 전략의 핵심 파트너 후보군이다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">콩고 DRC의 자원 외교 전환<sup>[10]</sup></div>
+      <p class="case-block__body">세계 코발트 생산량의 약 70%를 차지하면서도 원자재 수출에 머물렀던 콩고 DRC가, 트럼프 행정부와 양자 전략적 파트너십 협정을 체결하며 코발트·구리의 가공·제조 단계로 가치사슬을 상향하는 전략으로 전환했다. 자원국이 단순 추출을 넘어 현지 가공을 요구하는 추세는 한국 배터리·소재 기업이 현지 합작 공장 설립 등 가치사슬 파트너십 모델로 접근해야 함을 의미한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">노르웨이의 에너지 안보 국제 협력<sup>[10]</sup></div>
+      <p class="case-block__body">노르웨이는 독일·유럽 최대 천연가스 수출국으로서 러시아산 가스를 대체하는 핵심 공급원 역할을 하면서, 동시에 우크라이나 에너지 인프라 복구에 5억 유로 이상을 지원하고 있다. '에너지 공급 확보+현지 인프라 투자'를 결합하는 노르웨이 모델은, 한국이 핵심광물·에너지 분야에서 자원국과 장기적 파트너십을 구축할 때 참고할 수 있는 패키지 접근 전략이다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ Q4. Reframing ══════════════ -->
+<section id="sec-q4">
+  <div class="sec-head">
+    <div class="sec-head__label">Appendix — Q4. Reframing</div>
+    <h2 class="sec-head__title">의미를 잘 생각해 볼 필요가 있는 토픽</h2>
+  </div>
+  <p class="body-p" style="color:var(--muted);font-size:15px;margin-bottom:32px;">의미를 잘 생각해 볼 필요가 있는 토픽 · 알려진 사실을 다른 프레임으로 재해석</p>
+
+  <div class="insight-item" id="item-4-1">
+    <div class="insight-item__id">4-1</div>
+    <h3 class="insight-item__title">&quot;캐나다에 No = 중국에 Yes&quot;</h3>
+    <p class="body-p">미국의 동맹국 관세가 역설적으로 중국에 기회를 제공한다는 프레이밍으로, 보호무역의 의도하지 않은 결과를 압축합니다. 미시간-캐나다 자동차 부품이 국경을 30회 이상 왕복하고 디트로이트-윈저 교량이 미국-타국 간 최대 물류 통로인 현실에서, 관세는 보호가 아니라 교란이 됩니다. 관세로 인한 소비자 비용 증가는 대당 약 1,000달러이며 9개월 연속 제조업 침체가 지속되고 있습니다. 캐나다 정부가 중국과 EV 시장 개방 논의를 시작한 것은 이 역설이 현실화되고 있다는 직접적 증거이며, 중국 EV 제조업체들이 대규모 정부 보조금으로 유럽 시장에서 가격 경쟁력을 확보하고 있는 상황과 맞물려 미국 관세 정책의 반사이익 구조가 더욱 선명해지고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">캐나다에 노라고 말하면 중국에 예스라고 말하는 것입니다. 캐나다를 적으로 만들면서 우리는 북미가 중국 전기차에 문을 열 가능성을 만들고 있습니다.</p>
+      <span class="bq__attr">그레첸 휘트머, 미시간 주지사 | 과거와의 단절: 미국 외교정책의 지각변동 타운홀 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">EU의 중국 EV 반보조금 관세 부과<sup>[2]</sup></div>
+      <p class="case-block__body">EU는 2024년 BYD·지리·SAIC 등 중국 EV 제조업체에 대해 17~38%의 반보조금 관세를 부과했다. 중국의 대규모 국가 보조금(제조보조금, 배터리 보조금, 토지 무상제공 등)이 유럽 시장의 공정 경쟁을 왜곡한다는 조사 결과에 따른 것으로, 수입 침투율이 급증하기 전에 선제적으로 대응한 사례다. 한국 자동차·배터리 산업이 중국 보조금 기반 가격 경쟁에 노출될 경우, EU와 유사한 무역 구제 수단의 활용을 검토할 수 있으며, EU 시장 내 현지 생산 거점 확보로 관세 장벽을 우회하는 전략이 중요하다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">현대차그룹의 미국·유럽 현지 생산 확대<sup>[2]</sup></div>
+      <p class="case-block__body">현대자동차그룹은 미국 조지아 메타플랜트(2025년 가동 시작, 300억 달러 투자)와 체코 노소비체 공장 등 주요 소비 시장 인근에 생산 거점을 구축하고 있다. 관세 리스크를 현지 생산으로 헤지하는 이 전략은, MSC에서 논의된 동맹국 간 관세 불확실성이 심화되는 환경에서 핵심 대응 방안이며, 미국 IRA(인플레이션감축법)의 배터리·EV 세액공제 요건이 현지 생산·조달을 요구하는 추세와도 부합한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">USMCA 재검토와 공급망 아키텍처 재설계<sup>[2]</sup></div>
+      <p class="case-block__body">USMCA는 트럼프 대통령이 직접 협상한 협정이지만 현 관세 정책과 충돌하는 자가 모순을 보이고 있다. 2026년 USMCA 재검토(sunset review)를 앞두고, 북미 자동차 공급망의 원산지 규정(75% 역내 부가가치)과 철강·알루미늄 관세가 동시에 작동하면서 공급망 설계의 복잡성이 급증하고 있다. 한국 부품·소재 기업은 멕시코·미국 내 생산 거점의 원산지 관리 시스템을 정교화하고, USMCA 재검토에 대비한 시나리오별 공급망 재설계가 시급하다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-4-2">
+    <div class="insight-item__id">4-2</div>
+    <h3 class="insight-item__title">&quot;역사의 종말&quot; 비판과 자유무역 교리 폐기</h3>
+    <p class="body-p">미국 국무장관이 자유무역 자체를 공식적으로 부정한 것은 탈냉전 세계 질서의 이념적 기반이 해체되고 있음을 의미합니다. 루비오는 탈산업화를 "불가피한 것이 아니라 의식적인 정책 선택"으로 규정하며 "기후 숭배(climate cult)"를 위해 자국민을 빈곤하게 만드는 에너지 정책과 핵심 공급망 통제권을 적대국·경쟁국에 넘겨준 결과를 비판했습니다. 이 프레이밍은 미국 외교 정책의 이념적 전환을 넘어 글로벌 공급망 재편의 논리적 근거를 제공하며, ASML(네덜란드) 같은 반도체 제조 장비 독점 기업에 대한 수출 통제가 이 논리의 직접적 실행 수단입니다. 휘태커 NATO 대사가 "ASML 기술 통제가 인류 종의 생존에 필수적"이라 강조한 것은 기술 통제가 안보의 핵심 축으로 격상되었음을 보여줍니다.</p>
+    <div class="bq">
+      <p class="bq__text">냉전 승리의 환희는 우리를 '역사의 종말'이라는 위험한 망상으로 이끌었습니다. 일부 국가들이 자국 경제를 보호하고 기업에 보조금을 지급하며 체계적으로 우리 산업을 약화시키는 동안, 우리는 독단적인 자유무역을 고수하여 공장들이 폐쇄되고 수백만 개의 중산층 일자리가 해외로 이전되었습니다.</p>
+      <span class="bq__attr">마르코 루비오, 미국 국무장관 | 미국의 세계 무대 주요 장면 I | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">TSMC의 미국·일본 현지 생산 투자<sup>[14]</sup></div>
+      <p class="case-block__body">대만 TSMC는 미국 애리조나에 400억 달러 이상, 일본 구마모토에 86억 달러를 투자하여 첨단 반도체 공장을 건설 중이다. 미국의 CHIPS Act(527억 달러 보조금)와 일본의 반도체 산업 지원(1조 엔 이상)이 투자 유인이 되었으며, 이는 루비오가 말한 "핵심 공급망 통제권 회복"의 구체적 실행이다. 한국 반도체 기업(삼성전자, SK하이닉스)도 미국·일본·유럽에서 현지 생산을 확대하고 있으며, 기술 주권 시대에 "생산 지점의 지정학적 분산"이 핵심 대응 전략이 되고 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">미국의 ASML 대중국 수출 통제 강화<sup>[2]</sup></div>
+      <p class="case-block__body">미국은 네덜란드 정부와 협력하여 ASML의 대중국 EUV 장비 수출을 전면 금지하고, DUV 장비에 대해서도 단계적 제한을 확대하고 있다. 휘태커 NATO 대사가 "ASML 기술 통제가 인류 종의 생존에 필수적"이라 발언한 것은 반도체 장비 수출 통제가 국가안보의 핵심 축으로 격상되었음을 의미한다. 한국 반도체 장비·소재 기업은 미국 수출 통제 규정(EAR)의 확대 적용에 대비하여 고객별 출하 관리 시스템과 기술 분류 체계를 정비해야 하며, 미국·일본·네덜란드 장비 동맹에 한국 기업의 참여를 확대하는 정책적 노력이 필요하다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">EU의 경제안보전략<sup>[9]</sup></div>
+      <p class="case-block__body">EU는 2023년 경제안보전략을 발표하고, 핵심기술 유출 방지를 위한 아웃바운드 투자 심사(outbound investment screening), 이중용도 기술 수출 통제 강화, 핵심 의존도 감축(de-risking)을 추진하고 있다. 루비오의 "자유무역 교리 폐기"가 미국 측 전환이라면, EU의 경제안보전략은 유럽 측의 병행 전환으로 기술 주권과 공급망 안보를 무역 정책의 핵심 축으로 격상시키고 있다. 한국 기업은 EU의 핵심원자재법(Critical Raw Materials Act)과 연계하여 배터리·반도체 원자재의 공급원 다변화에서 EU와 전략적 파트너십을 확대할 수 있다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-4-3">
+    <div class="insight-item__id">4-3</div>
+    <h3 class="insight-item__title">포퓰리즘의 본질: 좌우가 아닌 대중 vs 엘리트</h3>
+    <p class="body-p">좌파(AOC)와 우파(AFD 지지자)가 공통적으로 "엘리트의 배신"을 지목합니다. 포퓰리즘을 좌/우로 분류하는 주류와 달리, 노동계급 배신감이라는 동일한 구조적 원인이 관찰됩니다. 독일 에센의 노동자 기도(Guido)는 SPD 당원에서 AFD로 전향하며 "중도우파와 중도좌파가 구별 불가"하고 선택은 "좌우가 아닌 일반 대중 vs 엘리트"라고 증언했습니다. 유럽과 남미에서 포퓰리즘에 대응하는 실질적 정책 — 이민 통제, 재정 규율, 국방-복지 양립 모델 — 이 정치적 지지를 확보한 사례들은, 포퓰리즘이 불가역적 추세가 아닌 정책적 대응이 가능한 구조적 문제임을 시사합니다.</p>
+    <div class="bq">
+      <p class="bq__text">저는 뉴욕에서 웨이트리스로 일하고 있었고 건강보험이 없었으며 월세를 낼 수 없었습니다. 당선 후 고위 민주당 관계자들이 최저임금 15달러는 너무 높고, 메디케어 확대는 너무 극단적이라고 비웃었습니다.</p>
+      <span class="bq__attr">알렉산드리아 오카시오-코르테즈, 미국 하원의원 | Vox Populi의 포퓰리즘 부상에 대한 대응 타운홀 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">아르헨티나 밀레이 정부의 구조개혁과 투자 유치<sup>[15]</sup></div>
+      <p class="case-block__body">밀레이 정부는 취임 후 공공 지출을 GDP 대비 약 5%p 삭감하고 국영기업 민영화, 보조금 철폐 등 전통적으로 인기 없는 정책을 단행했음에도 2025년 중간선거에서 오히려 지지를 확대했다. 다이애나 페르난데스 모 의원은 "국민이 장기적 이익을 이해했기 때문"이라 분석했다. 세계에서 가장 폐쇄적이었던 경제를 자유무역 체제로 전환하면서 BHP·Rio Tinto·Glencore 등 글로벌 기업의 리튬 투자를 유치하는 데 성공했으며, 한국 배터리·소재 기업에게 아르헨티나를 남미 핵심광물·에너지 투자 거점으로 재평가할 근거를 제공한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">이탈리아 멜로니-EPP 불법이민 80% 감소<sup>[15]</sup></div>
+      <p class="case-block__body">조지아 멜로니 이탈리아 총리는 유럽인민당(EPP)과 협력하여 '안전한 제3국' 개념 적용, 튀니지·리비아와의 양자 협정, 해상 감시 강화를 결합한 종합 정책으로 지중해 불법이민을 80% 감소시켰다. 베버 EPP 대표는 "시민의 우려에 적절한 답변을 제시하는 것"이 포퓰리즘에 대한 최선의 대응이라 강조했으며, 유럽의 이민·안보 정책 강화가 사회 안정과 소비 심리 회복으로 이어질 경우 한국 기업의 유럽 사업 환경에도 긍정적 영향을 미칠 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">체코 파벨 대통령의 국방-복지 양립 모델<sup>[15]</sup></div>
+      <p class="case-block__body">체코 파벨 대통령은 EU가 국방비 GDP 2% 초과분을 재정적자 산정에서 제외하는 조항을 도입한 점을 들어 국방비 증액과 사회복지 유지가 양립 가능하다고 주장했다. 유럽에서 가장 산업화된 국가 중 하나인 체코는 방위산업에 오랜 전통을 가지고 있으며, 국방산업 성장→세수 증대→사회복지 재원 확보의 선순환 구조를 제시했다. 한국 방위산업 기업이 유럽 시장에 진출할 때 단순 무기 수출을 넘어 현지 고용 창출·기술 이전·세수 기여 등 산업 생태계 기여를 강조하는 마케팅 전략의 근거가 된다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-4-4">
+    <div class="insight-item__id">4-4</div>
+    <h3 class="insight-item__title">재생에너지 = AI 경쟁력</h3>
+    <p class="body-p">에너지 전환의 진짜 동력이 기후에서 AI·산업 경쟁력으로 이동하고 있습니다. 중국은 배출량을 9% 줄이는 동시에 산업 생산량을 늘리면서 저렴한 에너지를 대량 공급하고 있으며, 약간 더 나은 칩을 보유하면서도 에너지 비용이 훨씬 저렴한 구조적 우위로 AI 경쟁에서 비용 우위를 점하고 있습니다. 미국은 SMR(소형모듈형원자로)-데이터센터 연계로 이에 대응하려 하고 있으며, 데이터센터가 단순 에너지 소비자에서 전력망의 양방향 자산으로 전환되는 사례가 이미 나타나고 있습니다. 에너지 인프라 통합이 군사적 회복탄력성의 기반으로 작동하고 있다는 점은 이 전환의 안보적 차원을 보여줍니다.</p>
+    <div class="bq">
+      <p class="bq__text">중국은 배출량을 9% 줄이는 동시에 산업 생산량을 늘렸고, 저렴한 에너지를 대량으로 공급하여 인공지능 경쟁에서도 승리할 전망입니다. 재생에너지의 장점은 풍력이나 태양광을 건설하면 에너지 단가가 0에 가까워진다는 점입니다. 0이라는 가격은 그 어떤 것도 따라올 수 없습니다. 공식대로라면 중국이 이기는 거죠.</p>
+      <span class="bq__attr">노르웨이 외무장관 | 원자재의 지정학: 자원 패널 토론 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">마이크로소프트의 데이터센터-전력망 양방향 모델<sup>[10]</sup></div>
+      <p class="case-block__body">마이크로소프트는 미국 동부 해안 폭풍 시 데이터센터의 백업 발전 설비를 이용해 피크 시간대에 전력을 전력망에 공급하여 정전을 방지한 실적이 있다. 이는 데이터센터가 단순 에너지 소비자에서 전력망의 양방향 자산으로 전환될 수 있음을 입증한 사례다. 트럼프 행정부는 SMR(소형모듈형원자로)-데이터센터 연계를 통해 중국과 경쟁 가능한 전력 생산을 추진하고 있으며, 한국의 SMR 기술(한국수력원자력 i-SMR 등)과 데이터센터 인프라 기업에 미국 시장 진출 기회를 제공한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">우크라이나-EU 전력망 연결의 안보적 가치<sup>[10]</sup></div>
+      <p class="case-block__body">전쟁 전 우크라이나를 EU 전력망(ENTSO-E)에 연결한 것은 전시 에너지 안보의 핵심 자산으로 작동하고 있다. 러시아가 하룻밤에 500대의 드론으로 에너지 인프라를 공격하는 상황에서도, EU 전력망 연결 덕분에 우크라이나는 최소한의 전력 공급을 유지할 수 있었다. 독일 에너지 장관은 "노르웨이에서 이탈리아까지, 우크라이나에서 스페인까지 연결되는" 통합 전력망의 중요성을 강조했으며, 이 사례는 에너지 인프라 통합이 군사적 회복탄력성의 기반임을 입증한다. 한국 전력 기술(HVDC, 스마트그리드 등)의 유럽·아시아 전력 연계 사업 참여 근거를 제공한다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">중국의 재생에너지-AI 비용 우위와 한국의 에너지 믹스 과제<sup>[10]</sup></div>
+      <p class="case-block__body">노르웨이 외무장관이 지적한 대로 중국은 재생에너지를 대량 보급하여 태양광 패널 생산 비용을 글로벌 평균 대비 약 60% 저렴하게 유지하고 있으며, 이 에너지 비용 우위가 AI 데이터센터 운영 비용으로 직결된다. 한국은 재생에너지 비중이 OECD 최하위권이며, AI 데이터센터 확대에 필요한 전력 비용이 산업 경쟁력을 좌우하는 상황에서, 재생에너지 확대와 원자력(SMR 포함) 병행 전략으로 에너지 믹스를 재설계해야 한다. 에너지 전환이 환경 의제가 아니라 AI·산업 경쟁력의 핵심 인프라임을 인식하는 것이 출발점이다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ Q1. Blind Spot ══════════════ -->
+<section id="sec-q1">
+  <div class="sec-head">
+    <div class="sec-head__label">Appendix — Q1. Blind Spot</div>
+    <h2 class="sec-head__title">선견/선수를 위한 토픽</h2>
+  </div>
+  <p class="body-p" style="color:var(--muted);font-size:15px;margin-bottom:32px;">선견/선수를 위한 토픽 · 52개 세션 교차분석으로만 발견 가능한 인사이트</p>
+
+  <div class="insight-item" id="item-1-1">
+    <div class="insight-item__id">1-1</div>
+    <h3 class="insight-item__title">유럽안보이사회(European Security Council) 창설 논의</h3>
+    <p class="body-p">EU 전체가 아닌 '의지의 연합' 형태의 새로운 안보 기구가 구체적으로 제안되었습니다. 헝가리 등을 배제하는 구조로, EU 안보 거버넌스의 근본적 재설계를 의미합니다. 미디어가 NATO 5% 국방비에 집중하는 사이, 이 제도적 혁신의 실현 속도가 방위산업 시장 개방의 크기를 결정할 수 있습니다. 현재 유럽은 17종 헬리콥터, 20종 이상의 호위함, 10종 전투기를 보유하는 반면 미국은 전투기 1종만 운용하는 극도의 비효율 구조이며, 마이크로소프트 시스템 차단 우려가 제기되면서 디지털 주권 논의가 방위 논의와 결합되고 있습니다. 이러한 파편화가 역설적으로 표준화된 장비 공급자의 부상을 촉진하고 있으며, 방위산업 표준화가 수출 경쟁력의 선결 조건으로 작동하고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">EU와 연결되어 있지만 동시에 EU와 NATO의 병렬 군사 구조를 생각해야 합니다. 제 제안은 유럽안보이사회입니다. EU 없이는 안 되고, EU 전체는 아니며, 헝가리 같은 국가는 제외하는 구조입니다.</p>
+      <span class="bq__attr">세르게이 라고딘스키, 유럽의회 의원 | 유럽 방위 타운홀 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">라인메탈(독일)<sup>[7]</sup></div>
+      <p class="case-block__body">유럽 재무장 수요 급증에 대응하여 생산능력을 대폭 확충하고 우크라이나에 포탄 생산공장을 설립하며 전시 수요에 직접 대응하고 있다. 독일 정부의 대규모 국방 투자 확대와 맞물려 유럽 방위산업 표준화의 핵심 공급자로 부상했으며, K-방산 기업이 유럽 방위 생태계에 진입할 때 합작·부품 공급 등의 파트너로 고려할 수 있는 대표 기업이다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">AUKUS(호주-영국-미국 안보 파트너십)<sup>[6]</sup></div>
+      <p class="case-block__body">기존 NATO·EU 프레임 밖에서 새로운 방위산업 협력 구조를 창설한 사례로, 호주에 핵추진 잠수함 기술을 이전하고 AI·양자컴퓨팅·극초음속 무기 등 첨단 기술 공동 개발을 추진하고 있다. 유럽안보이사회가 유사한 '의지의 연합' 구조로 출범할 경우, AUKUS처럼 기술 파트너 자격의 비회원국 참여 경로가 열릴 수 있으며, 한국의 방위기술 역량이 이 경로의 핵심 자산이 될 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">그리펜 전투기(스웨덴 사브)<sup>[7]</sup></div>
+      <p class="case-block__body">중소 규모 국가의 방위산업이 수출 성공을 거둔 대표 사례로, 태국·브라질·남아공 등에 수출되었다. 사브는 기체 가격 경쟁력과 운용 비용 절감, 기술 이전 패키지를 결합한 전략으로 미국·프랑스 대형 방산과 차별화했으며, K-방산이 유럽 시장 진출 시 가격·기술이전·현지 생산의 결합 패키지 전략에 참고할 수 있다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-1-2">
+    <div class="insight-item__id">1-2</div>
+    <h3 class="insight-item__title">러시아 체제의 &quot;후기 소련형 행정 마비&quot;</h3>
+    <p class="body-p">러시아가 돈이 바닥나기 전에 시스템 자체가 작동 불능에 빠질 가능성입니다. 명령이 실행되지 않고, 체제가 자국 엘리트를 탄압하며 스스로를 잠식하는 상태로, 전쟁의 끝은 "마지막 달러"가 아니라 "시스템이 작동을 멈출 때" 옵니다. 사상자는 이미 100만 명을 넘어 1945년 이후 러·소련 전체 손실 합산을 초과했으며, 도네츠크 전선에서 1km 점령당 156명 희생, 매일 1,000명 사망이라는 수치는 체제의 지속 불가능성을 드러냅니다. 나우세다 리투아니아 대통령이 "경제학자들이 해결 방법이 없다고 말하는 상황"이라 진단한 스태그플레이션은 행정 마비를 가속하는 경제적 배경이며, 로스네프트·루크오일에 대한 미국 제재와 EU 20차 제재 패키지 예고는 이 시나리오를 현실화하는 외부 압박 수단입니다. 블루멘탈 상원의원이 중국을 전쟁의 "독성 요소"로 규정한 것은 러시아 체제 유지의 외부 지원 차단이 행정 마비 시나리오의 핵심 변수임을 시사합니다.</p>
+    <div class="bq">
+      <p class="bq__text">체제가 시민사회와 국민뿐만 아니라 엘리트들을 대규모로 탄압하며 그들을 체포하고 자산을 몰수하며 탈출 가능성 없이 삶을 비참하게 만들고 있습니다. 이것이 러시아가 돈이 떨어지는 것보다 더 큰 위협으로 보입니다.</p>
+      <span class="bq__attr">카타리나 슈만, 러시아 전문가 | 러시아의 현황에 대한 조명: 공공 광장 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">EU 에너지 공급원 전환<sup>[12]</sup></div>
+      <p class="case-block__body">EU는 전쟁 전 천연가스의 약 40%를 러시아에서 수입했으나, 2년 내에 노르웨이·미국 LNG·카타르 등으로 공급원을 전환하며 러시아 의존도를 10% 미만으로 낮추었다. LNG 터미널 신설, 재생에너지 투자 가속화, 에너지 효율화 정책이 동시에 추진되었으며, 체제 마비로 러시아 에너지 공급이 급격히 불안정해질 경우를 대비한 한국의 에너지 공급망 복원력 설계에 참고할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">러시아 그림자 함대 차단 작전<sup>[12]</sup></div>
+      <p class="case-block__body">러시아는 서방 제재를 우회하기 위해 1,000척 이상의 노후 유조선으로 구성된 '그림자 함대'를 운용하여 석유를 밀수출하고 있다. 프랑스와 영국은 해군력을 동원하여 유럽 해역에서 이 함대의 운항을 차단하고 있으며, 이는 에너지 제재가 경제적 조치를 넘어 군사적 해상 봉쇄로 확대되고 있음을 의미한다. 한국 해운·보험·금융 기업이 러시아 관련 선박·화물 거래에서 2차 제재 리스크에 노출될 가능성에 대한 사전 점검이 필요하다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-1-3">
+    <div class="insight-item__id">1-3</div>
+    <h3 class="insight-item__title">우주-AI 융합과 실세계 모델</h3>
+    <p class="body-p">위성 데이터와 AI가 결합한 "실세계 모델(Real-World Model)"이 새로운 전략적 자산으로 부상하고 있습니다. 우주와 AI를 별개로 다루는 주류와 달리, MSC에서는 양자의 융합이 새로운 안보 패러다임으로 제시되었습니다. 우주 기반 경제는 향후 10년 내 1.8조 달러 규모로 성장할 전망이며, 유럽은 차기 MFF에서 우주 예산 약 400억 유로를 우선 배정하고 독자 AI 모델 개발에 100~200억 유로가 필요한 것으로 추정됩니다(에릭 슈미트). 이 융합은 이미 안보와 환경 감시의 실전에 적용되고 있으며, 유럽 방위산업이 이 트렌드에 적극 대응하면서 새로운 시장이 열리고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">우주와 AI가 곧 결혼할 것입니다. AI는 데이터에 해석 가능성을 제공하지만, 우주는 AI에 해석할 수 있는 엄청난 양의 데이터를 제공합니다. Planet만 해도 지구 육지의 모든 지점에 대해 평균 3,000장의 이미지를 보유하고 있습니다.</p>
+      <span class="bq__attr">Will Marshall, Planet 공동창업자 겸 CEO | 평화유지군의 은하계 가이드: 우주 거버넌스 재출범 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">Planet(미국 위성 데이터 기업)<sup>[1]</sup></div>
+      <p class="case-block__body">초소형 위성 200여 기를 운용하여 지구 전체를 매일 촬영하며, 지구 육지 모든 지점에 평균 3,000장의 이미지 데이터를 축적했다. 우크라이나 전쟁에서 러시아 영토 내 위협 사전 탐지 이미지를 제공하고, 브라질 연방경찰과 아마존 불법 벌채 감시에 협력하는 등 안보·환경 분야에서 우주-AI 융합의 상업적 모델을 선도하고 있다. 위성 데이터+AI 분석 역량이 방위·환경·농업·보험 등 다영역 시장을 창출하고 있어, 한국 기업의 우주-AI 융합 사업 진출 참고 모델이다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">Helsing(유럽 방위 AI 기업)<sup>[1]</sup></div>
+      <p class="case-block__body">독일·프랑스·영국에 거점을 둔 방위 전문 AI 기업으로, Hensoldt·Kongsberg·ISA Aerospace와 합작하여 표적 지정용 군사 위성 발사 프로젝트를 추진하고 있다. 유럽 정부의 방위 AI 수요 신호에 신속 대응하며 급성장한 사례로, 유럽이 미국 빅테크 의존을 줄이고 독자 방위 AI 생태계를 구축하려는 과정에서 한국 AI·반도체 기업과의 협력 가능성을 보여준다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">SpaceX/Starlink<sup>[1][11]</sup></div>
+      <p class="case-block__body">우크라이나 전쟁에서 지상 통신 인프라가 파괴된 상황에서 위성 인터넷 Starlink가 군·민간 통신의 핵심 인프라로 작동했으며, 러시아군의 Starlink 사용을 차단하는 결정이 전장 역학에 직접적 영향을 미쳤다. 민간 우주 자산이 전시 전략적 자산으로 전환될 수 있음을 입증한 사례로, 한국의 위성통신·저궤도 위성 사업의 안보 시장 잠재력을 시사한다.</p>
+    </div>
+  </div>
+
+  <div class="insight-item" id="item-1-4">
+    <div class="insight-item__id">1-4</div>
+    <h3 class="insight-item__title">NATO 회복탄력성 독트린</h3>
+    <p class="body-p">NATO GDP 5% 중 1.5%를 식량·에너지·통신 회복탄력성에 배정하는 새로운 방위 독트린입니다. 식량을 억지력의 핵심 조력자(critical enabler)로 재정의하며, 방위의 범위를 군사적 영역 너머로 확장합니다. 러시아는 곡물을 "제2의 석유"로 공식 규정하고 우크라이나 점령지에서 대규모 밀 약탈을 자행하고 있으며, 수확 후 손실 30~40%를 야기하는 냉장 저장시설·인증 시스템 부재가 식량 회복탄력성의 핵심 병목으로 지목되었습니다. 식량 공급망 디지털화와 콜드체인 인프라가 새로운 안보 투자 영역으로 부상하고 있습니다.</p>
+    <div class="bq">
+      <p class="bq__text">식량 시스템이 억지력과 방어의 핵심 조력자라는 것을 인식하고 있습니다. 식량 시스템의 사이버 보안 강화, 생물학적 위협 완화, 전략적 비축을 통해 일방적 취약성을 줄이는 것이 총체적 방위 문화의 일부입니다.</p>
+      <span class="bq__attr">베네데타 알베르티, NATO 식량안보 태스크포스 | 식량 무기화에 대항한 영양 회복력 전쟁 타운홀 | 2026.2.15</span>
+    </div>
+    <div class="bq">
+      <p class="bq__text">빈 배로는 대륙을 건설할 수 없고, 빈 배로는 전쟁에서 이길 수 없습니다.</p>
+      <span class="bq__attr">크리스토프 한센, EU 농업식량 집행위원 | 식량 무기화에 대항한 영양 회복력 전쟁 타운홀 | 2026.2.15</span>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">NASA·마이크로소프트 AI for Good 프로그램<sup>[16]</sup></div>
+      <p class="case-block__body">위성 이미지와 AI를 결합하여 러시아 점령지에서 수확된 밀의 양을 정량 분석하고, 약 100억 달러 상당의 밀 약탈을 입증했다. 식량 무기화를 객관적 데이터로 증명하는 동시에, 식량 공급망의 디지털 모니터링이라는 새로운 안보 시장을 창출하고 있다. 위성-AI 기반 농업 모니터링은 한국 기업이 진출할 수 있는 안보-농업 융합 영역이다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">IFAD 이집트 통합 프로그램<sup>[16]</sup></div>
+      <p class="case-block__body">국제농업개발기금(IFAD)이 이집트에서 추진 중인 40억 달러 규모의 프로그램으로, 나일강 수자원 관리, 재생에너지 기반 관개 시스템, 기후 스마트 농업을 하나의 물-에너지-식량 통합 플랫폼으로 구축하고 있다. NATO의 복합 회복탄력성 독트린이 요구하는 '다영역 통합 인프라'의 실행 모델이며, ESS·스마트 그리드·농업 ICT를 결합한 한국 기업의 패키지 수출에 참고할 수 있다.</p>
+    </div>
+    <div class="case-block">
+      <div class="case-block__label">CASE</div>
+      <div class="case-block__title">에티오피아·잠비아의 식량 자급 전략<sup>[16]</sup></div>
+      <p class="case-block__body">에티오피아는 밀 자급을 달성하고 잠비아는 특정 작물의 자급을 이루어냈으며, 적절한 농업 기술 투자와 정책 지원이 결합되면 식량 주권 확보가 현실적으로 가능함을 입증했다. 수확 후 손실 30~40%의 핵심 병목인 냉장 저장시설·인증 시스템 구축이 신규 투자 영역으로 부상하고 있어, 콜드체인·농업 ICT 기업에 구조적 시장 기회가 열리고 있다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ Silence Map ══════════════ -->
+<section id="sec-silence">
+  <div class="sec-head">
+    <div class="sec-head__label">Structural Absence</div>
+    <h2 class="sec-head__title">Silence Map</h2>
+  </div>
+  <p class="body-p" style="color:var(--muted);font-size:15px;margin-bottom:24px;">52건 전수 확인으로 식별한 구조적 부재 — 논의되지 않은 것이 현재 담론의 한계를 규정합니다</p>
+
+  <table class="silence-table">
+    <thead>
+      <tr><th>Gap</th><th>기대 의제</th><th>실제</th><th>전략적 의미</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🔴</td><td><strong>사이버 전쟁</strong></td><td>전용 세션 없음</td><td>하이브리드 전쟁이 핵심 의제임에도 물리적 방위력(국방비·무기)에 압도적 초점. 사이버 방위 투자가 구조적으로 과소 대표되고 있으며, 이 격차가 한국 사이버 보안 기업에 기회이자 한국 인프라의 잠재적 취약점</td></tr>
+      <tr><td>🔴</td><td><strong>경제적 강압 통합 프레임</strong></td><td>파편적 논의만</td><td>미국 관세·중국 희토류·러시아 에너지 무기화가 모두 경제적 강압이나, 이를 통합적으로 분석하는 프레임 부재. 각국이 자국의 강압은 "정당한 정책"으로, 상대의 것만 "강압"으로 프레이밍하는 이중잣대. 한국 기업에 가장 실질적인 리스크 영역</td></tr>
+      <tr><td>🔴</td><td><strong>보건안보</strong></td><td>완전 소외</td><td>COVID-19 후 불과 수년, 전통 안보 위기가 비전통 안보를 완전히 밀어냄. 위기 피로(crisis fatigue)의 전형이며, 차기 팬데믹 대비의 구조적 취약점</td></tr>
+      <tr><td>⚠️</td><td><strong>대만 해협</strong></td><td>간접 언급만</td><td>인도태평양을 논하면서 대만 직접 의제화 회피 — 콜비의 "강하지만 조용한(Strong but Quiet)" 대중국 접근이 컨퍼런스 설계에 반영. 이 침묵이 유사시 서방의 대만 방어 의지에 대한 의문을 키울 수 있음</td></tr>
+      <tr><td>⚠️</td><td><strong>한반도·한일 안보 역할</strong></td><td>부수적 언급</td><td>한국 GDP 3.5%가 "신글로벌 표준" 모범 사례로 활용되나, 한반도 자체는 "중국 견제의 부수 요소"로만 취급. 한국은 자체 안보 내러티브를 MSC 같은 플랫폼에 적극 투사할 필요</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ References ══════════════ -->
+<section id="sec-ref">
+  <div class="sec-head">
+    <div class="sec-head__label">Source Sessions</div>
+    <h2 class="sec-head__title">References</h2>
+  </div>
+
+  <table class="ref-table">
+    <thead>
+      <tr><th style="width:40px">No.</th><th>세션명</th><th style="width:80px">Library</th><th style="width:115px;text-align:center">Date</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>[1]</td><td>평화유지군의 은하계 가이드: 우주 거버넌스 재출범</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[2]</td><td>과거와의 단절: 미국 외교정책의 지각변동 타운홀</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[3]</td><td>능력 있는 자들의 연합: 우크라이나를 위한 장기 지원 확보 메인 스테이지 I</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[4]</td><td>컨퍼런스 개막 + 유럽과 세계 속의 독일</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[5]</td><td>괜찮은 평화: 인도-태평양 지역의 미국 대화</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[6]</td><td>이중 위협: 유럽, 인도태평양, 그리고 연결된 안보 과제 패널 토론</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[7]</td><td>유럽 방위 타운홀</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[8]</td><td>유럽 방어와 우크라이나 지원의 최전선 Main Stage I</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[9]</td><td>원칙 있고 실용적인 힘의 행사: 혼란한 세계에서의 대화</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[10]</td><td>원자재의 지정학: 자원 패널 토론</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[11]</td><td>우크라이나 공공광장의 보안 보장에 대한 조명</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[12]</td><td>러시아의 현황에 대한 조명: 공공 광장</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[13]</td><td>하향식이 아닌 풀뿌리 차원의 대서양 양안 협력에 주목하는 공개 광장</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[14]</td><td>미국의 세계 무대 주요 장면 I</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[15]</td><td>Vox Populi의 포퓰리즘 부상에 대한 대응 타운홀</td><td>msc2026</td><td>2026-02-15</td></tr>
+      <tr><td>[16]</td><td>식량 무기화에 대항한 영양 회복력 전쟁 타운홀</td><td>msc2026</td><td>2026-02-15</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:13px; color:#888; margin-top:12px;">주) 제시된 세션들은 PLEX/ELASTICSEARCH에서 원문과 요약문을 확인할 수 있습니다.</p>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">팩토리10</div>
+    <div class="site-footer__copy">MSC 2026 Conference Brief &middot; 2026.2.19 &middot; Conference Analysis Team</div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// Progress bar
+window.addEventListener('scroll', function() {
+  var h = document.documentElement;
+  var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+// TOC active highlight
+(function() {
+  var links = document.querySelectorAll('.toc-link');
+  var sections = [];
+  links.forEach(function(l) {
+    var id = l.getAttribute('href').replace('#', '');
+    var el = document.getElementById(id);
+    if (el) sections.push({ el: el, link: l });
+  });
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 120;
+    var active = null;
+    sections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY) active = s;
+    });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  });
+})();
+</script>
+
+</body>
+</html>

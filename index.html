@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conference Brief — 2026년 2월</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #2C2C2C;
+  --mid:     #5A5A5A;
+  --muted:   #999;
+  --white:   #FFFFFF;
+  --serif:   'Noto Serif KR', Georgia, serif;
+  --sans:    'Noto Sans KR', Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  background: #f5f2ee;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ── FULL COVER ── */
+.cover {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.cover__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* 우측만 부드럽게 밝아지는 그라디언트 */
+.cover__fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(245,242,238,0) 0%,
+    rgba(245,242,238,0) 35%,
+    rgba(245,242,238,.45) 55%,
+    rgba(245,242,238,.85) 72%,
+    rgba(245,242,238,.97) 85%
+  );
+}
+
+/* ── RIGHT CONTENT ── */
+.content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 52px 60px 40px;
+}
+
+.header__org {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(0,0,0,.3);
+  letter-spacing: 4px;
+  margin-bottom: 28px;
+}
+
+.header__title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+  letter-spacing: -.02em;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.header__sub {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 44px;
+}
+
+/* ── NAV LINKS ── */
+.nav__item {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 16px 0;
+  border-top: 1px solid rgba(0,0,0,.08);
+  transition: opacity .15s;
+}
+.nav__item:last-child {
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.nav__item:hover {
+  opacity: .5;
+}
+
+.nav__title {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -.01em;
+  word-break: keep-all;
+}
+
+.nav__source {
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(0,0,0,1);
+  margin-top: 3px;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 36px;
+  font-size: 10px;
+  color: rgba(0,0,0,.18);
+  letter-spacing: .5px;
+}
+
+@media (max-width: 760px) {
+  body { overflow: auto; height: auto; }
+  .cover { height: auto; min-height: 100vh; }
+  .cover__fade {
+    background: linear-gradient(
+      to bottom,
+      rgba(245,242,238,0) 0%,
+      rgba(245,242,238,.6) 50%,
+      rgba(245,242,238,.97) 70%
+    );
+  }
+  .content {
+    position: relative;
+    width: 100%;
+    padding: 40px 28px;
+    margin-top: -30vh;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img class="cover__img" src="cover.png" alt="">
+  <div class="cover__fade"></div>
+
+  <div class="content">
+    <div class="header__org">FACTORY10</div>
+    <h1 class="header__title">컨퍼런스 브리프<br><span style="font-size:20px; font-weight:400;">2026년 2월</span></h1>
+    <p class="header__sub">NC ANALYSIS</p>
+
+    <nav>
+      <a class="nav__item" href="wsj2026+techcouncil/wsj_techcouncil_web.html">
+        <div class="nav__title">AI 에이전트 시대: 2020년 2월의 재림과 소프트웨어 가치사슬의 재편</div>
+        <div class="nav__source">WSJ Tech Council · 2026. 2.12</div>
+      </a>
+      <a class="nav__item" href="msc2026/msc2026_web.html">
+        <div class="nav__title">MSC 2026: 무너진 규칙, 재편되는 세계 질서</div>
+        <div class="nav__source">뮌헨안보회의 · 2026. 2.19</div>
+      </a>
+      <a class="nav__item" href="wsj2026+investlive/wsj_investlive_web.html">
+        <div class="nav__title">2026 글로벌 투자 지형: 전함의 질주와 숨겨진 균열</div>
+        <div class="nav__source">WSJ Invest Live · 2026. 2.19</div>
+      </a>
+      <a class="nav__item" href="humanoidsummit2026/humanoidsummit2026_web.html">
+        <div class="nav__title">휴머노이드 2025: 기술 시연을 넘어 실전 배치로</div>
+        <div class="nav__source">Humanoid Summit · 2026. 2.20</div>
+      </a>
+    </nav>
+
+    <div class="footer">FACTORY10 · NC ANALYSIS · 2026</div>
+  </div>
+</div>
+
+</body>
+</html>
